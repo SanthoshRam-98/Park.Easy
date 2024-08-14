@@ -1,14 +1,24 @@
 import React from "react";
 import NavBar from "./NavBar";
 import CarArticle from "./CarArticle";
-import Service from "./Service";
+import BikeParking from "./BikeParking";
+import CarParking from "./CarParking";
+import Testimonial from "./Testimonial";
+import AboutUs from "./AboutUs";
+import GetInTouch from "./GetInTouch";
+import Footer from "./Footer";
 
 const HomePage = () => {
   return (
     <div>
       <NavBar />
       <CarArticle />
-      <Service />
+      <BikeParking />
+      <CarParking />
+      <Testimonial />
+      <AboutUs />
+      <GetInTouch />
+      <Footer />
     </div>
   );
 };

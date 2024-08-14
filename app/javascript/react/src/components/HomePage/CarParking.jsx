@@ -1,11 +1,9 @@
 import React from "react";
+import { carpark } from "C:/Users/santh/OneDrive/Desktop/park_easy/app/javascript/react/src/Images";
 
-const Service = () => {
+const CarParking = () => {
   const styles = {
     serviceContainer: {
-      display: "flex",
-      justifyContent: "space-around",
-      alignItems: "center",
       padding: "20px 40px", // Same padding as CarArticle to match
       backgroundColor: "rgb(0 0 0 / 92%)",
       color: "#fff",
@@ -29,6 +27,10 @@ const Service = () => {
       marginTop: "20px",
       color: "#ddd",
     },
+    bikeEV: {
+      display: "flex",
+      justifyContent: "space-around",
+    },
     button: {
       textDecoration: "none",
       backgroundColor: "#ff0",
@@ -44,6 +46,9 @@ const Service = () => {
       backgroundImage:
         "linear-gradient(352deg, rgba(33, 37, 41, 0.68), rgba(0, 0, 0, 0.21))",
     },
+    buttonHover: {
+      backgroundColor: "rgba(255, 255, 0, 0.888)",
+    },
     imageSection: {
       display: "flex",
       justifyContent: "center",
@@ -54,31 +59,43 @@ const Service = () => {
       maxWidth: "80%",
       height: "auto",
       borderRadius: "10px",
-      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
     },
   };
 
   return (
     <div style={styles.serviceContainer}>
-      <div style={styles.imageSection}>
-        <img
-          src="/path-to-your-image/service-image.png"
-          alt="Service Illustration"
-          style={styles.serviceImage}
-        />
-      </div>
-      <div style={styles.textSection}>
-        <h2 style={styles.heading}>Our Services</h2>
-        <h3 style={styles.subHeading}>EV Parking & Simple Parking</h3>
-        <p style={styles.paragraph}>
-          Bike parking can supplement transit ridership both in bustling urban
-          corridors and at regional stops and stations, and can replace time-
-          and space-consuming on-bus bicycle racks...
-        </p>
-        <button style={styles.button}>Know More</button>
+      <div style={styles.bikeEV}>
+        <div style={styles.textSection}>
+          <p style={styles.paragraph}> Car </p>
+          <h3 style={styles.subHeading}>EV Parking & Simple Parking</h3>
+          <p style={styles.paragraph}>
+            A car park is a space specially designed for all road users so that
+            they can park their vehicle safely.In addition to being a functional
+            place to park, parking is also an infrastructure that reduces the
+            CO2 emissions of ...
+          </p>
+          <div>
+            <button
+              style={styles.button}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  styles.buttonHover.backgroundColor)
+              }
+            >
+              Know More
+            </button>
+          </div>
+        </div>
+        <div style={styles.imageSection}>
+          <img
+            src={carpark}
+            alt="Service Illustration"
+            style={styles.serviceImage}
+          />
+        </div>
       </div>
     </div>
   );
 };
 
-export default Service;
+export default CarParking;
