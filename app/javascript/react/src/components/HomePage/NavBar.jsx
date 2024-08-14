@@ -60,162 +60,164 @@ const NavBar = () => {
   };
 
   return (
-    <div style={styles.navbar}>
-      <a href="#" style={styles.navHeader}>
-        Park.Easy
-      </a>
-      <a
-        href="#"
-        style={{
-          ...styles.navSection,
-          ...(hoveredIndex === 0 ? styles.hoverNavSection : {}),
-          position: "relative",
-        }}
-        onMouseOver={() => handleMouseOver(0)}
-        onMouseOut={handleMouseOut}
-      >
-        Home
-        <div
+    <div id="container">
+      <div style={styles.navbar}>
+        <a href="#" style={styles.navHeader}>
+          Park.Easy
+        </a>
+        <a
+          href="#"
           style={{
-            position: "absolute",
-            left: 0,
-            bottom: "-6px",
-            width: hoveredIndex === 0 ? "100%" : 0,
-            height: "2px",
-            backgroundColor: "yellow",
-            transition: "width 0.3s ease",
+            ...styles.navSection,
+            ...(hoveredIndex === 0 ? styles.hoverNavSection : {}),
+            position: "relative",
           }}
-        />
-      </a>
-      <a
-        href="#"
-        style={{
-          ...styles.navSection,
-          ...(hoveredIndex === 1 ? styles.hoverNavSection : {}),
-          position: "relative",
-        }}
-        onMouseOver={() => handleMouseOver(1)}
-        onMouseOut={handleMouseOut}
-      >
-        Parking
-        <div
+          onMouseOver={() => handleMouseOver(0)}
+          onMouseOut={handleMouseOut}
+        >
+          Home
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: "-6px",
+              width: hoveredIndex === 0 ? "100%" : 0,
+              height: "2px",
+              backgroundColor: "yellow",
+              transition: "width 0.3s ease",
+            }}
+          />
+        </a>
+        <a
+          href="#"
           style={{
-            position: "absolute",
-            left: 0,
-            bottom: "-6px",
-            width: hoveredIndex === 1 ? "100%" : 0,
-            height: "2px",
-            backgroundColor: "yellow",
-            transition: "width 0.3s ease",
+            ...styles.navSection,
+            ...(hoveredIndex === 1 ? styles.hoverNavSection : {}),
+            position: "relative",
           }}
-        />
-      </a>
-      <a
-        href="#"
-        style={{
-          ...styles.navSection,
-          ...(hoveredIndex === 2 ? styles.hoverNavSection : {}),
-          position: "relative",
-        }}
-        onMouseOver={() => handleMouseOver(2)}
-        onMouseOut={handleMouseOut}
-      >
-        List Your Space
-        <div
+          onMouseOver={() => handleMouseOver(1)}
+          onMouseOut={handleMouseOut}
+        >
+          Parking
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: "-6px",
+              width: hoveredIndex === 1 ? "100%" : 0,
+              height: "2px",
+              backgroundColor: "yellow",
+              transition: "width 0.3s ease",
+            }}
+          />
+        </a>
+        <a
+          href="#"
           style={{
-            position: "absolute",
-            left: 0,
-            bottom: "-6px",
-            width: hoveredIndex === 2 ? "100%" : 0,
-            height: "2px",
-            backgroundColor: "yellow",
-            transition: "width 0.3s ease",
+            ...styles.navSection,
+            ...(hoveredIndex === 2 ? styles.hoverNavSection : {}),
+            position: "relative",
           }}
-        />
-      </a>
-      <a
-        href="#"
-        style={{
-          ...styles.navSection,
-          ...(hoveredIndex === 3 ? styles.hoverNavSection : {}),
-          position: "relative",
-        }}
-        onMouseOver={() => handleMouseOver(3)}
-        onMouseOut={handleMouseOut}
-      >
-        Plan & Pricing
-        <div
+          onMouseOver={() => handleMouseOver(2)}
+          onMouseOut={handleMouseOut}
+        >
+          List Your Space
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: "-6px",
+              width: hoveredIndex === 2 ? "100%" : 0,
+              height: "2px",
+              backgroundColor: "yellow",
+              transition: "width 0.3s ease",
+            }}
+          />
+        </a>
+        <a
+          href="#"
           style={{
-            position: "absolute",
-            left: 0,
-            bottom: "-6px",
-            width: hoveredIndex === 3 ? "100%" : 0,
-            height: "2px",
-            backgroundColor: "yellow",
-            transition: "width 0.3s ease",
+            ...styles.navSection,
+            ...(hoveredIndex === 3 ? styles.hoverNavSection : {}),
+            position: "relative",
           }}
-        />
-      </a>
-      <a
-        href="#"
-        style={{
-          ...styles.navSection,
-          ...(hoveredIndex === 4 ? styles.hoverNavSection : {}),
-          position: "relative",
-        }}
-        onMouseOver={() => handleMouseOver(4)}
-        onMouseOut={handleMouseOut}
-      >
-        About Us
-        <div
+          onMouseOver={() => handleMouseOver(3)}
+          onMouseOut={handleMouseOut}
+        >
+          Plan & Pricing
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: "-6px",
+              width: hoveredIndex === 3 ? "100%" : 0,
+              height: "2px",
+              backgroundColor: "yellow",
+              transition: "width 0.3s ease",
+            }}
+          />
+        </a>
+        <a
+          href="#"
           style={{
-            position: "absolute",
-            left: 0,
-            bottom: "-6px",
-            width: hoveredIndex === 4 ? "100%" : 0,
-            height: "2px",
-            backgroundColor: "yellow",
-            transition: "width 0.3s ease",
+            ...styles.navSection,
+            ...(hoveredIndex === 4 ? styles.hoverNavSection : {}),
+            position: "relative",
           }}
-        />
-      </a>
-      <a
-        href="#"
-        style={{
-          ...styles.navSection,
-          ...(hoveredIndex === 5 ? styles.hoverNavSection : {}),
-          position: "relative",
-        }}
-        onMouseOver={() => handleMouseOver(5)}
-        onMouseOut={handleMouseOut}
-      >
-        Contact Us
-        <div
+          onMouseOver={() => handleMouseOver(4)}
+          onMouseOut={handleMouseOut}
+        >
+          About Us
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: "-6px",
+              width: hoveredIndex === 4 ? "100%" : 0,
+              height: "2px",
+              backgroundColor: "yellow",
+              transition: "width 0.3s ease",
+            }}
+          />
+        </a>
+        <a
+          href="#"
           style={{
-            position: "absolute",
-            left: 0,
-            bottom: "-6px",
-            width: hoveredIndex === 5 ? "100%" : 0,
-            height: "2px",
-            backgroundColor: "yellow",
-            transition: "width 0.3s ease",
+            ...styles.navSection,
+            ...(hoveredIndex === 5 ? styles.hoverNavSection : {}),
+            position: "relative",
           }}
-        />
-      </a>
-      <a
-        href="#"
-        style={styles.navButton}
-        onMouseOver={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            styles.hoverNavButton.backgroundColor)
-        }
-        onMouseOut={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            styles.navButton.backgroundColor)
-        }
-      >
-        Log In
-      </a>
+          onMouseOver={() => handleMouseOver(5)}
+          onMouseOut={handleMouseOut}
+        >
+          Contact Us
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: "-6px",
+              width: hoveredIndex === 5 ? "100%" : 0,
+              height: "2px",
+              backgroundColor: "yellow",
+              transition: "width 0.3s ease",
+            }}
+          />
+        </a>
+        <a
+          href="#"
+          style={styles.navButton}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor =
+              styles.hoverNavButton.backgroundColor)
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor =
+              styles.navButton.backgroundColor)
+          }
+        >
+          Log In
+        </a>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
 class HomePageController < ApplicationController
-  def index
+  def navbar
   end
 end
