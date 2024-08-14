@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom/client";
 import { useState } from "react";
 
 // Define styles as JavaScript objects
@@ -31,11 +30,12 @@ const styles = {
     padding: "6px 44px",
     textAlign: "center",
     display: "inline-block",
-    fontSize: "16px",
     borderRadius: "32px",
     transition: "background-color 0.3s ease, color 0.3s ease",
     color: "black",
     fontSize: "1.2em",
+    backgroundImage:
+      "linear-gradient(352deg, rgba(33, 37, 41, 0.68), rgba(0, 0, 0, 0.21))",
   },
   hoverNavSection: {
     color: "yellow",
@@ -221,12 +221,5 @@ const NavBar = () => {
     </div>
   );
 };
-
-// Render NavBar component
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("welcome");
-  const root = ReactDOM.createRoot(container);
-  root.render(<NavBar />);
-});
 
 export default NavBar;

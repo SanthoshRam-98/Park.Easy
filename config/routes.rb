@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root "home_page#navbar"
+  root "home_page#index"
 end
