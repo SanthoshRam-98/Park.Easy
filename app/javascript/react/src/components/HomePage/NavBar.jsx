@@ -1,224 +1,62 @@
-import * as React from "react";
-import { useState } from "react";
-
-// Define styles as JavaScript objects
-const styles = {
-  navbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "20px",
-    backgroundColor: "black",
-    alignItems: "center",
-  },
-  navHeader: {
-    color: "white",
-    textDecoration: "none",
-    fontSize: "1.6em",
-    fontWeight: "bold",
-  },
-  navSection: {
-    color: "white",
-    textDecoration: "none",
-    position: "relative",
-    fontSize: "1.2em",
-    transition: "color 0.3s ease",
-  },
-  navButton: {
-    textDecoration: "none",
-    backgroundColor: "yellow",
-    border: "none",
-    padding: "6px 44px",
-    textAlign: "center",
-    display: "inline-block",
-    borderRadius: "32px",
-    transition: "background-color 0.3s ease, color 0.3s ease",
-    color: "black",
-    fontSize: "1.2em",
-    backgroundImage:
-      "linear-gradient(352deg, rgba(33, 37, 41, 0.68), rgba(0, 0, 0, 0.21))",
-  },
-  hoverNavSection: {
-    color: "yellow",
-  },
-  hoverNavSectionAfter: {
-    width: "100%",
-  },
-  hoverNavButton: {
-    backgroundColor: "rgba(255, 255, 0, 0.888)",
-  },
-};
+import React from "react";
 
 const NavBar = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const handleMouseOver = (index) => {
-    setHoveredIndex(index);
-  };
-
-  const handleMouseOut = () => {
-    setHoveredIndex(null);
+  const navStyles = {
+    container: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "16px 32px",
+      backgroundColor: "#1a1a1a",
+    },
+    title: {
+      fontSize: "24px",
+      fontWeight: "bold",
+      color: "#ffffff",
+    },
+    navLinks: {
+      display: "flex",
+      gap: "24px",
+    },
+    link: {
+      color: "#ffffff",
+      textDecoration: "none",
+    },
+    button: {
+      backgroundColor: "#f1c40f",
+      color: "#000000",
+      padding: "8px 16px",
+      borderRadius: "8px",
+      border: "none",
+      cursor: "pointer",
+    },
   };
 
   return (
-    <div id="container">
-      <div style={styles.navbar}>
-        <a href="#" style={styles.navHeader}>
-          Park.Easy
-        </a>
-        <a
-          href="#"
-          style={{
-            ...styles.navSection,
-            ...(hoveredIndex === 0 ? styles.hoverNavSection : {}),
-            position: "relative",
-          }}
-          onMouseOver={() => handleMouseOver(0)}
-          onMouseOut={handleMouseOut}
-        >
+    <header style={navStyles.container}>
+      <div style={navStyles.title}>Park.Easy</div>
+      <nav style={navStyles.navLinks}>
+        <a href="#" style={navStyles.link}>
           Home
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: "-6px",
-              width: hoveredIndex === 0 ? "100%" : 0,
-              height: "2px",
-              backgroundColor: "yellow",
-              transition: "width 0.3s ease",
-            }}
-          />
         </a>
-        <a
-          href="#"
-          style={{
-            ...styles.navSection,
-            ...(hoveredIndex === 1 ? styles.hoverNavSection : {}),
-            position: "relative",
-          }}
-          onMouseOver={() => handleMouseOver(1)}
-          onMouseOut={handleMouseOut}
-        >
+        <a href="#" style={navStyles.link}>
           Parking
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: "-6px",
-              width: hoveredIndex === 1 ? "100%" : 0,
-              height: "2px",
-              backgroundColor: "yellow",
-              transition: "width 0.3s ease",
-            }}
-          />
         </a>
-        <a
-          href="#"
-          style={{
-            ...styles.navSection,
-            ...(hoveredIndex === 2 ? styles.hoverNavSection : {}),
-            position: "relative",
-          }}
-          onMouseOver={() => handleMouseOver(2)}
-          onMouseOut={handleMouseOut}
-        >
-          List Your Space
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: "-6px",
-              width: hoveredIndex === 2 ? "100%" : 0,
-              height: "2px",
-              backgroundColor: "yellow",
-              transition: "width 0.3s ease",
-            }}
-          />
+        <a href="#" style={navStyles.link}>
+          List your Space
         </a>
-        <a
-          href="#"
-          style={{
-            ...styles.navSection,
-            ...(hoveredIndex === 3 ? styles.hoverNavSection : {}),
-            position: "relative",
-          }}
-          onMouseOver={() => handleMouseOver(3)}
-          onMouseOut={handleMouseOut}
-        >
+        <a href="#" style={navStyles.link}>
           Plan & Pricing
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: "-6px",
-              width: hoveredIndex === 3 ? "100%" : 0,
-              height: "2px",
-              backgroundColor: "yellow",
-              transition: "width 0.3s ease",
-            }}
-          />
         </a>
-        <a
-          href="#"
-          style={{
-            ...styles.navSection,
-            ...(hoveredIndex === 4 ? styles.hoverNavSection : {}),
-            position: "relative",
-          }}
-          onMouseOver={() => handleMouseOver(4)}
-          onMouseOut={handleMouseOut}
-        >
+        <a href="#" style={navStyles.link}>
           About Us
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: "-6px",
-              width: hoveredIndex === 4 ? "100%" : 0,
-              height: "2px",
-              backgroundColor: "yellow",
-              transition: "width 0.3s ease",
-            }}
-          />
         </a>
-        <a
-          href="#"
-          style={{
-            ...styles.navSection,
-            ...(hoveredIndex === 5 ? styles.hoverNavSection : {}),
-            position: "relative",
-          }}
-          onMouseOver={() => handleMouseOver(5)}
-          onMouseOut={handleMouseOut}
-        >
+        <a href="#" style={navStyles.link}>
           Contact Us
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: "-6px",
-              width: hoveredIndex === 5 ? "100%" : 0,
-              height: "2px",
-              backgroundColor: "yellow",
-              transition: "width 0.3s ease",
-            }}
-          />
         </a>
-        <a
-          href="#"
-          style={styles.navButton}
-          onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor =
-              styles.hoverNavButton.backgroundColor)
-          }
-          onMouseOut={(e) =>
-            (e.currentTarget.style.backgroundColor =
-              styles.navButton.backgroundColor)
-          }
-        >
-          Log In
-        </a>
-      </div>
-    </div>
+      </nav>
+      <button style={navStyles.button}>Log In</button>
+    </header>
   );
 };
 

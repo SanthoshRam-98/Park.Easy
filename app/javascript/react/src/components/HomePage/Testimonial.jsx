@@ -1,100 +1,106 @@
 import React from "react";
 
-const Testimonial = () => {
-  const styles = {
-    testimonialContainer: {
-      padding: "50px 0",
-      backgroundColor: "rgb(0 0 0 / 92%)",
-      color: "#fff",
-      textAlign: "center",
-    },
-    heading: {
-      fontSize: "4em",
-      color: "#ffd700",
-      marginBottom: "40px",
-    },
-    testimonialCards: {
-      display: "flex",
-      justifyContent: "space-around",
-      alignItems: "center",
-      margin: "0 auto",
-      maxWidth: "80%",
-    },
-    card: {
-      backgroundColor: "#333",
-      padding: "20px",
-      borderRadius: "10px",
-      maxWidth: "300px",
-      position: "relative",
-      color: "#ddd",
-      textAlign: "left",
-    },
-    cardYellow: {
-      backgroundColor: "#ff0",
-      color: "#000",
-    },
-    name: {
-      fontSize: "2em",
-      color: "#fff",
-      marginTop: "20px",
-    },
-    text: {
-      fontSize: "1.5em",
-      marginTop: "10px",
-    },
-    icon: {
-      fontSize: "3em",
-      marginBottom: "20px",
-      color: "#ffd700",
-    },
-    bubble: {
-      position: "absolute",
-      top: "-10px",
-      left: "20px",
-      width: "30px",
-      height: "30px",
-      backgroundColor: "#333",
-      transform: "rotate(45deg)",
-    },
-    bubbleYellow: {
-      backgroundColor: "#ff0",
-    },
+export default function Testimonial() {
+  const containerStyle = {
+    backgroundColor: "#000000",
+    padding: "80px 32px",
+  };
+
+  const wrapperStyle = {};
+
+  const headingStyle = {
+    color: "#FFD700",
+    fontSize: "2.25rem",
+    fontWeight: "bold",
+    marginBottom: "48px",
+  };
+
+  const testimonialWrapperStyle = {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: "24px",
+  };
+
+  const textCenterStyle = {
+    textAlign: "center",
+  };
+
+  const iconStyle = {
+    color: "#FFFFFF",
+    fontSize: "2rem",
+    marginBottom: "16px",
+  };
+
+  const nameStyle = {
+    color: "#FFFFFF",
+    fontSize: "1.25rem",
+    marginBottom: "16px",
+  };
+
+  const textContainerStyle = {
+    backgroundColor: "#3A3A3A",
+    color: "#FFFFFF",
+    borderRadius: "20px",
+    padding: "24px",
+    maxWidth: "320px",
+    margin: "0 auto",
+  };
+
+  const highlightedTextContainerStyle = {
+    backgroundImage: "linear-gradient(to right, #FFD700, #FFB800)",
+    color: "#000000",
+    borderRadius: "20px",
+    padding: "24px",
+    maxWidth: "320px",
+    margin: "0 auto",
   };
 
   return (
-    <div style={styles.testimonialContainer}>
-      <h2 style={styles.heading}>Testimonials</h2>
-      <div style={styles.testimonialCards}>
-        <div style={styles.card}>
-          <div style={styles.bubble}></div>
-          <div style={styles.icon}>👥</div>
-          <h3 style={styles.name}>Charlie</h3>
-          <p style={styles.text}>
-            I tried Park.Easy car wash service on the recommendation of a
-            friend, and there has been no looking back since then.
-          </p>
-        </div>
-        <div style={{ ...styles.card, ...styles.cardYellow }}>
-          <div style={{ ...styles.bubble, ...styles.bubbleYellow }}></div>
-          <div style={styles.icon}>👥</div>
-          <h3 style={styles.name}>Kumar</h3>
-          <p style={styles.text}>
-            I can quickly check for open spots and secure one with ease. The
-            convenience is unmatched.
-          </p>
-        </div>
-        <div style={styles.card}>
-          <div style={styles.bubble}></div>
-          <div style={styles.icon}>👥</div>
-          <h3 style={styles.name}>Jessica</h3>
-          <p style={styles.text}>
-            Park.Easy has been a lifesaver in urban areas with limited parking
-            options. I no longer waste time driving around aimlessly.
-          </p>
+    <div style={containerStyle}>
+      <div style={wrapperStyle}>
+        <h2 style={headingStyle}>Testimonials</h2>
+        <div style={testimonialWrapperStyle}>
+          <div style={textCenterStyle}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <i className="fas fa-users" style={iconStyle}></i>
+            </div>
+            <h3 style={nameStyle}>Charlie</h3>
+            <div style={textContainerStyle}>
+              <p>
+                I tried Park.Easy car wash service on the recommendation of a
+                friend, and there has been no looking back since then.
+              </p>
+            </div>
+          </div>
+
+          <div style={textCenterStyle}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <i className="fas fa-users" style={iconStyle}></i>
+            </div>
+            <h3 style={nameStyle}>Kumar</h3>
+            <div style={highlightedTextContainerStyle}>
+              <p>
+                I can quickly check for open spots and secure one with ease. The
+                convenience is unmatched.
+              </p>
+            </div>
+          </div>
+
+          <div style={textCenterStyle}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <i className="fas fa-users" style={iconStyle}></i>
+            </div>
+            <h3 style={nameStyle}>Jessica</h3>
+            <div style={textContainerStyle}>
+              <p>
+                Park.Easy has been a lifesaver in urban areas with limited
+                parking options. I no longer waste time driving around
+                aimlessly.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default Testimonial;
+}

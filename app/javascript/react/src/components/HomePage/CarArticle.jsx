@@ -1,112 +1,72 @@
 import React from "react";
 import { car1 } from "C:/Users/santh/OneDrive/Desktop/park_easy/app/javascript/react/src/Images";
-
 const CarArticle = () => {
-  const styles = {
-    carArticle: {
+  const sectionStyles = {
+    container: {
       display: "flex",
-      justifyContent: "space-around",
       alignItems: "center",
-      padding: "20px 40px", // Adjust padding to match NavBar's padding
-      backgroundColor: "rgb(0 0 0 / 92%)",
-      color: "#fff",
-      //maxWidth: "1200px", // Adjust based on the NavBar width
-      margin: "0 auto", // Centering the content
-    },
-    textSection: {
-      maxWidth: "40%",
-      padding: "80px",
+      padding: "80px 32px",
+      backgroundColor: "black",
     },
     heading: {
-      fontSize: "4em",
-      color: "#ff0",
+      fontSize: "40px",
+      fontWeight: "bold",
+      color: "#f1c40f",
     },
     paragraph: {
-      fontSize: "2em",
-      marginTop: "20px",
-      color: "#ddd",
+      fontSize: "18px",
+      marginTop: "16px",
+      maxWidth: "800px",
+      color: "white",
     },
-    buttons: {
+    buttonContainer: {
       display: "flex",
-      columnGap: "28px",
+      gap: "16px",
+      marginTop: "32px",
     },
-    downloadButton: {
-      textDecoration: "none",
-      backgroundColor: "#ff0",
+    button: {
+      backgroundColor: "#ffd700",
+      color: "#0e0e0e",
       border: "none",
-      padding: "20px 45px",
-      textAlign: "center",
-      display: "inline-block",
-      fontSize: "1.2em",
-      borderRadius: "32px",
-      transition: "background-color 0.3s ease, color 0.3s ease",
-      color: "#000",
-      backgroundImage:
-        "linear-gradient(352deg, rgba(33, 37, 41, 0.68), rgba(0, 0, 0, 0.21))",
+      borderRadius: "5px",
+      padding: "10px 20px",
+      cursor: "pointer",
     },
-    downloadButtonHover: {
-      backgroundColor: "rgba(255, 255, 0, 0.888)",
+    secondaryButton: {
+      backgroundColor: "transparent",
+      color: "#ffffff",
+      border: "2px solid #ffffff",
+      borderRadius: "5px",
+      padding: "10px 20px",
+      cursor: "pointer",
     },
-    contactButton: {
-      textDecoration: "none",
-      backgroundColor: "#333",
-      color: "#fff",
-      border: "1px solid #fff",
-      padding: "6px 44px",
-      textAlign: "center",
-      display: "inline-block",
-      fontSize: "1.2em",
-      borderRadius: "32px",
-      transition: "background-color 0.3s ease, color 0.3s ease",
-    },
-    imageSection: {
+    imageContainer: {
       display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      maxWidth: "75%",
+      justifyContent: "space-around",
     },
-    carImage: {
-      maxWidth: "80%",
-      height: "auto",
-      borderRadius: "10px",
-      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
-    },
+    image: { maxWidth: "65%" },
   };
 
   return (
-    <div id="container">
-      <div style={styles.carArticle}>
-        <div style={styles.textSection}>
-          <h1 style={styles.heading}>
-            Simplify Your Car Experience with Park.Easy
-          </h1>
-          <p style={styles.paragraph}>
-            Park.Easy is an innovative app designed to simplify parking
-            experiences for users by providing real-time information and
-            seamless parking solutions.
-          </p>
-          <div style={styles.buttons}>
-            <button
-              style={styles.downloadButton}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.backgroundColor =
-                  styles.downloadButtonHover.backgroundColor)
-              }
-              onMouseOut={(e) =>
-                (e.currentTarget.style.backgroundColor =
-                  styles.downloadButton.backgroundColor)
-              }
-            >
-              Download Now
-            </button>
-            <button style={styles.contactButton}>Contact us</button>
-          </div>
-        </div>
-        <div style={styles.imageSection}>
-          <img src={car1} alt="Car 1" style={styles.carImage} />
+    <section style={sectionStyles.container}>
+      <div style={sectionStyles.headingarea}>
+        <h1 style={sectionStyles.heading}>
+          Simplify Your Car Experience with Park.Easy
+        </h1>
+        <p style={sectionStyles.paragraph}>
+          Park.Easy is an innovative app designed to simplify parking
+          experiences for users by providing real-time information and seamless
+          parking solutions.
+        </p>
+        <div style={sectionStyles.buttonContainer}>
+          <button style={sectionStyles.button}>Download Now</button>
+          <button style={sectionStyles.secondaryButton}>Contact us</button>
         </div>
       </div>
-    </div>
+      <div style={sectionStyles.imageContainer}>
+        <img src={car1} style={sectionStyles.image} alt="Sample" />
+      </div>
+    </section>
   );
 };
 

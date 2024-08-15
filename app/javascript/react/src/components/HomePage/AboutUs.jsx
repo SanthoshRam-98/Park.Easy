@@ -3,7 +3,7 @@ import React from "react";
 const AboutUs = () => {
   const styles = {
     container: {
-      padding: "50px 0",
+      padding: "20px 40px",
       backgroundColor: "rgb(0 0 0 / 92%)",
       color: "#fff",
       textAlign: "center",
