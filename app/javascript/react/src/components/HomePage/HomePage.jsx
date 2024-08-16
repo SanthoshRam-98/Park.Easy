@@ -16,9 +16,9 @@ const HomePage = () => {
       <BikeParking />
       <CarParking />
       <Testimonial />
-      {/* <AboutUs />
+      <AboutUs />
       <GetInTouch />
-      <Footer /> */}
+      <Footer />
     </div>
   );
 };

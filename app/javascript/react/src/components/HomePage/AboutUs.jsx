@@ -1,70 +1,67 @@
 import React from "react";
+import { PersonFill } from "react-bootstrap-icons"; // Importing the male profile icon
 
 const AboutUs = () => {
-  const styles = {
+  const sectionStyles = {
     container: {
-      padding: "20px 40px",
-      backgroundColor: "rgb(0 0 0 / 92%)",
-      color: "#fff",
-      textAlign: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "80px 32px",
+      backgroundColor: "black",
+      flexWrap: "wrap", // Allow wrapping for smaller screens
+    },
+    content: {
+      maxWidth: "75%",
+      color: "#ffffff",
+      marginBottom: "32px", // Add margin for spacing on smaller screens
     },
     heading: {
-      fontSize: "4em",
-      color: "#ffd700",
-      marginBottom: "20px",
+      fontSize: "4vw", // Responsive font size based on viewport width
+      fontWeight: "bold",
+      color: "#f1c40f",
+      marginBottom: "16px",
     },
-    text: {
-      fontSize: "2em",
-      maxWidth: "70%",
-      margin: "0 auto",
-      color: "#ddd",
+    paragraph: {
+      fontSize: "1.8vw",
+      marginTop: "16px",
     },
     button: {
-      marginTop: "30px",
-      textDecoration: "none",
-      backgroundColor: "#ff0",
+      backgroundColor: "#f1c40f",
+      color: "#000000",
+      padding: "8px 16px",
+      borderRadius: "8px",
       border: "none",
-      padding: "20px 45px",
-      textAlign: "center",
-      display: "inline-block",
-      fontSize: "1.2em",
-      borderRadius: "32px",
-      transition: "background-color 0.3s ease, color 0.3s ease",
-      color: "#000",
-      backgroundImage:
-        "linear-gradient(352deg, rgba(33, 37, 41, 0.68), rgba(0, 0, 0, 0.21))",
+      cursor: "pointer",
+      marginTop: "32px",
     },
-    buttonHover: {
-      backgroundColor: "rgba(255, 255, 0, 0.888)",
+    iconContainer: {
+      display: "flex",
+      justifyContent: "center",
+      marginTop: "32px",
     },
     icon: {
-      fontSize: "3em",
-      marginBottom: "20px",
-      color: "#ffd700",
+      fontSize: "10vw", // Large icon size, responsive to viewport width
+      color: "#f1c40f",
     },
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.icon}>👥</div>
-      <h2 style={styles.heading}>About us</h2>
-      <p style={styles.text}>
-        Welcome to Park.Easy, we know how important it is to have hassle-free
-        parking, whether you're a car owner looking for a safe place to park
-        your vehicle or a traveler looking for convenient parking options. Our
-        goal is to make your parking experience as seamless and stress-free as
-        possible.
-      </p>
-      <button
-        style={styles.button}
-        onMouseOver={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            styles.buttonHover.backgroundColor)
-        }
-      >
-        Explore More
-      </button>
-    </div>
+    <section style={sectionStyles.container} id="about-us">
+      <div style={sectionStyles.iconContainer}>
+        <PersonFill style={sectionStyles.icon} />
+      </div>
+      <div style={sectionStyles.content}>
+        <h2 style={sectionStyles.heading}>About Park.Easy</h2>
+        <p style={sectionStyles.paragraph}>
+          Park.Easy is a leading solution for all your parking needs. With a
+          focus on convenience, security, and innovation, we provide users with
+          real-time parking information, enabling hassle-free parking
+          experiences.
+        </p>
+        <button style={sectionStyles.button}>Learn More</button>
+      </div>
+    </section>
   );
 };
 

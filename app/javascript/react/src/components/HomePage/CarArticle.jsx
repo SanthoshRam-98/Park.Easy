@@ -1,5 +1,6 @@
 import React from "react";
 import { car1 } from "C:/Users/santh/OneDrive/Desktop/park_easy/app/javascript/react/src/Images";
+
 const CarArticle = () => {
   const sectionStyles = {
     container: {
@@ -7,22 +8,26 @@ const CarArticle = () => {
       alignItems: "center",
       padding: "80px 32px",
       backgroundColor: "black",
+      columnGap: "32px",
     },
     heading: {
-      fontSize: "40px",
+      fontSize: "4vw", // Responsive font size based on viewport width
       fontWeight: "bold",
       color: "#f1c40f",
+      flex: "1 1 100%", // Make the heading full width on smaller screens
     },
     paragraph: {
-      fontSize: "18px",
+      fontSize: "1.8vw",
       marginTop: "16px",
       maxWidth: "800px",
       color: "white",
+      flex: "1 1 100%", // Make the paragraph full width on smaller screens
     },
     buttonContainer: {
       display: "flex",
       gap: "16px",
       marginTop: "32px",
+      flexWrap: "wrap",
     },
     button: {
       backgroundColor: "#ffd700",
@@ -31,6 +36,7 @@ const CarArticle = () => {
       borderRadius: "5px",
       padding: "10px 20px",
       cursor: "pointer",
+      flex: "1", // Adjust button size on smaller screens
     },
     secondaryButton: {
       backgroundColor: "transparent",
@@ -39,17 +45,22 @@ const CarArticle = () => {
       borderRadius: "5px",
       padding: "10px 20px",
       cursor: "pointer",
+      flex: "1",
     },
     imageContainer: {
       display: "flex",
       justifyContent: "space-around",
+      flex: "1 1 100%", // Make the image full width on smaller screens
     },
-    image: { maxWidth: "65%" },
+    image: {
+      maxWidth: "100%",
+      height: "auto",
+    },
   };
 
   return (
-    <section style={sectionStyles.container}>
-      <div style={sectionStyles.headingarea}>
+    <section style={sectionStyles.container} id="car-article">
+      <div>
         <h1 style={sectionStyles.heading}>
           Simplify Your Car Experience with Park.Easy
         </h1>

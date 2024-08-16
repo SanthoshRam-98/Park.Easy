@@ -2,5 +2,5 @@
 //import "@hotwired/turbo-rails"
 //import "./controllers"
 import "./react/src/index.js";
-//import * as bootstrap from "bootstrap";
+import * as bootstrap from "bootstrap";
 //import "@fortawesome/fontawesome-free/css/all.min.css"; /* @vite-ignore */

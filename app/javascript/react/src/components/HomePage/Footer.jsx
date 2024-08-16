@@ -1,75 +1,65 @@
 import React from "react";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Google,
+} from "react-bootstrap-icons"; // Importing Bootstrap Icons
 
 const Footer = () => {
-  const styles = {
+  const footerStyles = {
     container: {
-      padding: "20px 40px",
-      backgroundColor: "#000",
-      color: "#fff",
-      textAlign: "center",
+      backgroundColor: "#1a1a1a",
+      padding: "40px 32px",
+      color: "#ffffff",
+      textAlign: "center", // Center content for smaller screens
     },
-    footerContent: {
+    links: {
       display: "flex",
-      justifyContent: "space-around",
-      alignItems: "center",
-      flexWrap: "wrap",
-      maxWidth: "1000px",
-      margin: "0 auto",
-      padding: "20px 0",
-      borderTop: "1px solid #333",
+      justifyContent: "center", // Center links on smaller screens
+      marginBottom: "16px",
+      flexWrap: "wrap", // Allow wrapping for smaller screens
+      gap: "16px", // Add space between links
     },
-    column: {
-      marginBottom: "20px",
-      textAlign: "left",
-    },
-    title: {
-      fontSize: "2em",
-      marginBottom: "10px",
-    },
-    listItem: {
-      fontSize: "1.5em",
-      color: "#ddd",
-      marginBottom: "10px",
+    link: {
+      color: "#ffffff",
+      textDecoration: "none",
     },
     socialIcons: {
-      fontSize: "2em",
-      color: "#ffd700",
-      margin: "0 10px",
+      display: "flex",
+      justifyContent: "center", // Center icons on smaller screens
+      gap: "16px", // Add space between icons
+      marginBottom: "16px",
     },
-    copyright: {
-      marginTop: "30px",
-      fontSize: "1.5em",
-      color: "#777",
+    icon: {
+      color: "#f1c40f", // Yellow fill for icons
+      fontSize: "24px",
+      cursor: "pointer",
     },
   };
 
   return (
-    <footer style={styles.container}>
-      <div style={styles.footerContent}>
-        <div style={styles.column}>
-          <h3 style={styles.title}>Menu</h3>
-          <p style={styles.listItem}>Home</p>
-          <p style={styles.listItem}>About Us</p>
-          <p style={styles.listItem}>Parking</p>
-          <p style={styles.listItem}>List your Space</p>
-          <p style={styles.listItem}>Plan & Pricing</p>
-          <p style={styles.listItem}>Contact</p>
-        </div>
-        <div style={styles.column}>
-          <h3 style={styles.title}>Account</h3>
-          <p style={styles.listItem}>Log In</p>
-          <p style={styles.listItem}>Sign Up</p>
-        </div>
-        <div style={styles.column}>
-          <h3 style={styles.title}>Follow Us</h3>
-          <span style={styles.socialIcons}>📘</span>
-          <span style={styles.socialIcons}>📸</span>
-          <span style={styles.socialIcons}>🐦</span>
-          <span style={styles.socialIcons}>▶️</span>
-          <span style={styles.socialIcons}>📧</span>
-        </div>
+    <footer style={footerStyles.container}>
+      <div style={footerStyles.links}>
+        <a href="#" style={footerStyles.link}>
+          Privacy Policy
+        </a>
+        <a href="#" style={footerStyles.link}>
+          Terms of Service
+        </a>
+        <a href="#" style={footerStyles.link}>
+          Contact Us
+        </a>
       </div>
-      <div style={styles.copyright}>© 2024 by Park.Easy</div>
+      <div style={footerStyles.socialIcons}>
+        <Facebook style={footerStyles.icon} />
+        <Twitter style={footerStyles.icon} />
+        <Instagram style={footerStyles.icon} />
+        <Youtube style={footerStyles.icon} />
+        <Google style={footerStyles.icon} />
+      </div>
+      <p>&copy; 2024 Park.Easy. All rights reserved.</p>
     </footer>
   );
 };

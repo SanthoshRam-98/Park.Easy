@@ -1,106 +1,115 @@
 import React from "react";
+import { PersonFill } from "react-bootstrap-icons"; // Importing a Bootstrap icon
 
-export default function Testimonial() {
-  const containerStyle = {
-    backgroundColor: "#000000",
-    padding: "80px 32px",
-  };
-
-  const wrapperStyle = {};
-
-  const headingStyle = {
-    color: "#FFD700",
-    fontSize: "2.25rem",
-    fontWeight: "bold",
-    marginBottom: "48px",
-  };
-
-  const testimonialWrapperStyle = {
-    display: "flex",
-    justifyContent: "space-between",
-    gap: "24px",
-  };
-
-  const textCenterStyle = {
-    textAlign: "center",
-  };
-
-  const iconStyle = {
-    color: "#FFFFFF",
-    fontSize: "2rem",
-    marginBottom: "16px",
-  };
-
-  const nameStyle = {
-    color: "#FFFFFF",
-    fontSize: "1.25rem",
-    marginBottom: "16px",
-  };
-
-  const textContainerStyle = {
-    backgroundColor: "#3A3A3A",
-    color: "#FFFFFF",
-    borderRadius: "20px",
-    padding: "24px",
-    maxWidth: "320px",
-    margin: "0 auto",
-  };
-
-  const highlightedTextContainerStyle = {
-    backgroundImage: "linear-gradient(to right, #FFD700, #FFB800)",
-    color: "#000000",
-    borderRadius: "20px",
-    padding: "24px",
-    maxWidth: "320px",
-    margin: "0 auto",
+const Testimonial = () => {
+  const sectionStyles = {
+    testimonialContainer: {
+      backgroundColor: "black",
+      padding: "80px 32px",
+    },
+    headingtag: {
+      color: "#f1c40f",
+      backgroundColor: "black",
+      marginBottom: "80px",
+      fontSize: "4vw",
+    },
+    container: {
+      display: "flex",
+      gap: "16px",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+    },
+    card: {
+      padding: "24px",
+      borderRadius: "8px",
+      color: "#ffffff",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+      maxWidth: "300px",
+      margin: "8px",
+    },
+    profileContainer: {
+      display: "flex",
+      alignItems: "center",
+      marginBottom: "16px",
+    },
+    icon: {
+      fontSize: "24px",
+      color: "#f1c40f",
+      marginRight: "16px",
+    },
+    name: {
+      fontSize: "18px",
+      fontWeight: "bold",
+      color: "#f1c40f",
+    },
+    message: {
+      fontStyle: "italic",
+    },
+    greyBackground: {
+      backgroundColor: "#1a1a1a",
+    },
+    yellowBackground: {
+      backgroundColor: "#f1c40f",
+      color: "black",
+    },
+    carddiv: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    },
   };
 
   return (
-    <div style={containerStyle}>
-      <div style={wrapperStyle}>
-        <h2 style={headingStyle}>Testimonials</h2>
-        <div style={testimonialWrapperStyle}>
-          <div style={textCenterStyle}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <i className="fas fa-users" style={iconStyle}></i>
-            </div>
-            <h3 style={nameStyle}>Charlie</h3>
-            <div style={textContainerStyle}>
-              <p>
-                I tried Park.Easy car wash service on the recommendation of a
-                friend, and there has been no looking back since then.
-              </p>
-            </div>
+    <section style={sectionStyles.testimonialContainer} id="testimonial">
+      <div>
+        <h1 style={sectionStyles.headingtag}>Testimonials</h1>
+      </div>
+      <div style={sectionStyles.container}>
+        <div style={sectionStyles.carddiv}>
+          <div style={sectionStyles.profileContainer}>
+            <PersonFill style={sectionStyles.icon} />
+            <div style={sectionStyles.name}>Charlie</div>
           </div>
-
-          <div style={textCenterStyle}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <i className="fas fa-users" style={iconStyle}></i>
-            </div>
-            <h3 style={nameStyle}>Kumar</h3>
-            <div style={highlightedTextContainerStyle}>
-              <p>
-                I can quickly check for open spots and secure one with ease. The
-                convenience is unmatched.
-              </p>
-            </div>
+          <div
+            style={{ ...sectionStyles.card, ...sectionStyles.greyBackground }}
+          >
+            <p style={sectionStyles.message}>
+              I tried Park.Easy car wash service on the recommendation of a
+              friend, and there has been no looking back since then.
+            </p>
           </div>
-
-          <div style={textCenterStyle}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <i className="fas fa-users" style={iconStyle}></i>
-            </div>
-            <h3 style={nameStyle}>Jessica</h3>
-            <div style={textContainerStyle}>
-              <p>
-                Park.Easy has been a lifesaver in urban areas with limited
-                parking options. I no longer waste time driving around
-                aimlessly.
-              </p>
-            </div>
+        </div>
+        <div style={sectionStyles.carddiv}>
+          <div style={sectionStyles.profileContainer}>
+            <PersonFill style={sectionStyles.icon} />
+            <div style={sectionStyles.name}>Kumar</div>
+          </div>
+          <div
+            style={{ ...sectionStyles.card, ...sectionStyles.yellowBackground }}
+          >
+            <p style={sectionStyles.message}>
+              I can quickly check for open spots and secure one with ease. The
+              convenience is unmatched.
+            </p>
+          </div>
+        </div>
+        <div style={sectionStyles.carddiv}>
+          <div style={sectionStyles.profileContainer}>
+            <PersonFill style={sectionStyles.icon} />
+            <div style={sectionStyles.name}>Jessica</div>
+          </div>
+          <div
+            style={{ ...sectionStyles.card, ...sectionStyles.greyBackground }}
+          >
+            <p style={sectionStyles.message}>
+              Park.Easy has been a lifesaver in urban areas with limited parking
+              options. I no longer waste time driving around aimlessly.
+            </p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default Testimonial;
