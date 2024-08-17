@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Header() {
-  // State to manage which link is hovered
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
   const [hoveredLink, setHoveredLink] = useState(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleMouseEnter = (link) => {
     setHoveredLink(link);
@@ -15,7 +27,7 @@ function Header() {
   const styles = {
     mainHeader: {
       backgroundColor: "#131212",
-      padding: "43px 70px 25px",
+      padding: isMobile ? "20px" : "43px 70px 25px",
       width: "100%",
       position: "sticky",
       top: 0,
@@ -23,8 +35,9 @@ function Header() {
     },
     headerContent: {
       display: "flex",
-      justifyContent: "space-between",
+      justifyContent: isMobile ? "flex-start" : "space-between",
       alignItems: "center",
+      flexDirection: isMobile ? "column" : "row",
     },
     logo: {
       color: "#fff",
@@ -36,13 +49,16 @@ function Header() {
     mainNav: {
       display: "flex",
       alignItems: "center",
+      flexDirection: isMobile ? "column" : "row",
+      marginTop: isMobile ? "20px" : "0",
     },
     navList: {
       display: "flex",
-      gap: "30px",
+      gap: isMobile ? "10px" : "30px",
       listStyle: "none",
       margin: 0,
       padding: 0,
+      flexDirection: isMobile ? "column" : "row",
     },
     navLink: (link) => ({
       color: hoveredLink === link ? "#ffd613" : "#b5b5b5",
@@ -50,8 +66,8 @@ function Header() {
       fontWeight: 400,
       fontFamily: "Poppins, sans-serif",
       textDecoration: "none",
-      transition: "color 0.3s ease, border-bottom 0.3s ease",
-      borderBottom: hoveredLink === link ? "2px solid #ffd613" : "none",
+      transition: "color 0.3s ease",
+      cursor: "pointer",
     }),
     loginBtn: {
       backgroundColor: "#ffd613",
@@ -62,34 +78,13 @@ function Header() {
       fontWeight: 500,
       fontFamily: "Poppins, sans-serif",
       padding: "11px 60px",
-      marginLeft: "30px",
+      marginLeft: isMobile ? "0" : "30px",
+      marginTop: isMobile ? "20px" : "0",
       cursor: "pointer",
       transition: "background-color 0.3s ease",
     },
     loginBtnHover: {
       backgroundColor: "#e0c20b",
-    },
-    "@media (max-width: 991px)": {
-      mainHeader: {
-        padding: "20px",
-      },
-      headerContent: {
-        flexDirection: "column",
-        alignItems: "flex-start",
-      },
-      mainNav: {
-        marginTop: "20px",
-        flexDirection: "column",
-        alignItems: "flex-start",
-      },
-      navList: {
-        flexDirection: "column",
-        gap: "10px",
-      },
-      loginBtn: {
-        marginLeft: 0,
-        marginTop: "20px",
-      },
     },
   };
 
@@ -160,7 +155,13 @@ function Header() {
               </a>
             </li>
           </ul>
-          <button style={styles.loginBtn}>Log In</button>
+          <button
+            style={styles.loginBtn}
+            onMouseEnter={() => handleMouseEnter("login")}
+            onMouseLeave={handleMouseLeave}
+          >
+            Log In
+          </button>
         </nav>
       </div>
     </header>

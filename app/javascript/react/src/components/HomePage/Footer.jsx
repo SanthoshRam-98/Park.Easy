@@ -1,37 +1,56 @@
-import React from "react";
-import { ColumnsGap } from "react-bootstrap-icons";
+import React, { useState, useEffect } from "react";
+import { Facebook, Twitter, Instagram, Linkedin } from "react-bootstrap-icons";
 
 function Footer() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isSmallMobile, setIsSmallMobile] = useState(window.innerWidth <= 480);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsSmallMobile(window.innerWidth <= 480);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const footerStyles = {
     backgroundColor: "#0f0d0d",
-    padding: "63px 70px 29px",
+    padding: isSmallMobile
+      ? "20px 10px"
+      : isMobile
+      ? "30px 20px"
+      : "63px 70px 29px",
     width: "100%",
+    boxSizing: "border-box",
   };
 
   const footerContentStyles = {
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: isSmallMobile ? "column" : "row",
+    justifyContent: isSmallMobile ? "center" : "space-between",
+    alignItems: isSmallMobile ? "center" : "flex-start",
     maxWidth: "1224px",
-    columnGap: "38px",
-    marginLeft: "auto",
+    margin: "0 auto",
   };
 
   const footerSectionStyles = {
     display: "flex",
     flexDirection: "column",
+    alignItems: isSmallMobile ? "center" : "flex-start",
   };
 
   const footerLogoStyles = {
     color: "#fff",
     font: "600 32px Poppins, sans-serif",
     letterSpacing: "4.8px",
-    marginBottom: "20px",
+    marginBottom: isSmallMobile ? "10px" : "20px",
   };
 
   const navTitleStyles = {
     color: "#fff",
     font: "600 24px Poppins, sans-serif",
-    marginBottom: "36px",
+    marginBottom: isSmallMobile ? "20px" : "36px",
   };
 
   const navListStyles = {
@@ -56,127 +75,45 @@ function Footer() {
   const sectionTitleStyles = {
     color: "#fff",
     font: "600 24px Poppins, sans-serif",
-    marginBottom: "36px",
+    marginBottom: isSmallMobile ? "20px" : "36px",
   };
 
-  const socialIconsStyles = {
-    width: "260px",
-    height: "auto",
+  const socialIconsContainer = {
+    display: "flex",
+    justifyContent: isSmallMobile ? "center" : "flex-start",
+    gap: "20px",
+    marginTop: isSmallMobile ? "20px" : "0",
+  };
+
+  const socialIconStyles = {
+    color: "rgb(255, 214, 19)",
+    fontSize: isSmallMobile ? "20px" : "24px",
+    transition: "color 0.3s ease",
+    cursor: "pointer",
+  };
+
+  const socialIconHoverStyles = {
+    color: "#e0c20b",
   };
 
   const copyrightStyles = {
     color: "#fff",
     font: "400 20px Poppins, sans-serif",
     textAlign: "center",
-    marginTop: "101px",
+    marginTop: isSmallMobile ? "40px" : "101px",
   };
-  const footerAlign = {
-    display: "flex",
-  };
+
   return (
     <footer style={footerStyles}>
-      <div style={footerAlign}>
-        <div>
-          <h2 style={footerLogoStyles}>Park.Easy</h2>
-        </div>
-        <div style={footerContentStyles}>
-          <div style={footerSectionStyles}>
-            <nav>
-              <h3 style={navTitleStyles}>Menu</h3>
-              <ul style={navListStyles}>
-                <li>
-                  <a
-                    href="/"
-                    style={navLinkStyles}
-                    onMouseOver={(e) =>
-                      (e.target.style.color = navLinkHoverStyles.color)
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.color = navLinkStyles.color)
-                    }
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/about-us"
-                    style={navLinkStyles}
-                    onMouseOver={(e) =>
-                      (e.target.style.color = navLinkHoverStyles.color)
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.color = navLinkStyles.color)
-                    }
-                  >
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/parking"
-                    style={navLinkStyles}
-                    onMouseOver={(e) =>
-                      (e.target.style.color = navLinkHoverStyles.color)
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.color = navLinkStyles.color)
-                    }
-                  >
-                    Parking
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/list-your-space"
-                    style={navLinkStyles}
-                    onMouseOver={(e) =>
-                      (e.target.style.color = navLinkHoverStyles.color)
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.color = navLinkStyles.color)
-                    }
-                  >
-                    List your Space
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/plan-pricing"
-                    style={navLinkStyles}
-                    onMouseOver={(e) =>
-                      (e.target.style.color = navLinkHoverStyles.color)
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.color = navLinkStyles.color)
-                    }
-                  >
-                    Plan & Pricing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/contact-us"
-                    style={navLinkStyles}
-                    onMouseOver={(e) =>
-                      (e.target.style.color = navLinkHoverStyles.color)
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.color = navLinkStyles.color)
-                    }
-                  >
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div style={footerSectionStyles}>
-            <h3 style={sectionTitleStyles}>Account</h3>
+      <div style={footerContentStyles}>
+        <h2 style={footerLogoStyles}>Park.Easy</h2>
+        <div style={footerSectionStyles}>
+          <nav>
+            <h3 style={navTitleStyles}>Menu</h3>
             <ul style={navListStyles}>
               <li>
                 <a
-                  href="/login"
+                  href="/"
                   style={navLinkStyles}
                   onMouseOver={(e) =>
                     (e.target.style.color = navLinkHoverStyles.color)
@@ -185,12 +122,12 @@ function Footer() {
                     (e.target.style.color = navLinkStyles.color)
                   }
                 >
-                  Log In
+                  Home
                 </a>
               </li>
               <li>
                 <a
-                  href="/signup"
+                  href="/about-us"
                   style={navLinkStyles}
                   onMouseOver={(e) =>
                     (e.target.style.color = navLinkHoverStyles.color)
@@ -199,18 +136,156 @@ function Footer() {
                     (e.target.style.color = navLinkStyles.color)
                   }
                 >
-                  Sign Up
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/parking"
+                  style={navLinkStyles}
+                  onMouseOver={(e) =>
+                    (e.target.style.color = navLinkHoverStyles.color)
+                  }
+                  onMouseOut={(e) =>
+                    (e.target.style.color = navLinkStyles.color)
+                  }
+                >
+                  Parking
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/list-your-space"
+                  style={navLinkStyles}
+                  onMouseOver={(e) =>
+                    (e.target.style.color = navLinkHoverStyles.color)
+                  }
+                  onMouseOut={(e) =>
+                    (e.target.style.color = navLinkStyles.color)
+                  }
+                >
+                  List your Space
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/plan-pricing"
+                  style={navLinkStyles}
+                  onMouseOver={(e) =>
+                    (e.target.style.color = navLinkHoverStyles.color)
+                  }
+                  onMouseOut={(e) =>
+                    (e.target.style.color = navLinkStyles.color)
+                  }
+                >
+                  Plan & Pricing
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact-us"
+                  style={navLinkStyles}
+                  onMouseOver={(e) =>
+                    (e.target.style.color = navLinkHoverStyles.color)
+                  }
+                  onMouseOut={(e) =>
+                    (e.target.style.color = navLinkStyles.color)
+                  }
+                >
+                  Contact Us
                 </a>
               </li>
             </ul>
-          </div>
-          <div style={footerSectionStyles}>
-            <h3 style={sectionTitleStyles}>Follow Us</h3>
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5c667a60170e4ad6bbb30c1269c779dbb5e4a85882152b195b9c5d36dc7bfe9?apiKey=1e478041483c415d8c6ecd66dd4ddacc&"
-              alt="Social media icons"
-              style={socialIconsStyles}
-            />
+          </nav>
+        </div>
+        <div style={footerSectionStyles}>
+          <h3 style={sectionTitleStyles}>Account</h3>
+          <ul style={navListStyles}>
+            <li>
+              <a
+                href="/login"
+                style={navLinkStyles}
+                onMouseOver={(e) =>
+                  (e.target.style.color = navLinkHoverStyles.color)
+                }
+                onMouseOut={(e) => (e.target.style.color = navLinkStyles.color)}
+              >
+                Log In
+              </a>
+            </li>
+            <li>
+              <a
+                href="/signup"
+                style={navLinkStyles}
+                onMouseOver={(e) =>
+                  (e.target.style.color = navLinkHoverStyles.color)
+                }
+                onMouseOut={(e) => (e.target.style.color = navLinkStyles.color)}
+              >
+                Sign Up
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div style={footerSectionStyles}>
+          <h3 style={sectionTitleStyles}>Follow Us</h3>
+          <div style={socialIconsContainer}>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={socialIconStyles}
+              onMouseOver={(e) =>
+                (e.target.style.color = socialIconHoverStyles.color)
+              }
+              onMouseOut={(e) =>
+                (e.target.style.color = socialIconStyles.color)
+              }
+            >
+              <Facebook />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={socialIconStyles}
+              onMouseOver={(e) =>
+                (e.target.style.color = socialIconHoverStyles.color)
+              }
+              onMouseOut={(e) =>
+                (e.target.style.color = socialIconStyles.color)
+              }
+            >
+              <Twitter />
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={socialIconStyles}
+              onMouseOver={(e) =>
+                (e.target.style.color = socialIconHoverStyles.color)
+              }
+              onMouseOut={(e) =>
+                (e.target.style.color = socialIconStyles.color)
+              }
+            >
+              <Instagram />
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={socialIconStyles}
+              onMouseOver={(e) =>
+                (e.target.style.color = socialIconHoverStyles.color)
+              }
+              onMouseOut={(e) =>
+                (e.target.style.color = socialIconStyles.color)
+              }
+            >
+              <Linkedin />
+            </a>
           </div>
         </div>
       </div>
