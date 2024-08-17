@@ -30,7 +30,7 @@ const testimonials = [
 function Testimonials() {
   return (
     <section style={styles.testimonialContainer} id="testimonial">
-      <h2 style={styles.sectionTitle}>Our Happy Customers</h2>
+      <h2 style={styles.sectionTitle}>Testimonials</h2>
       <div style={styles.testimonialGrid}>
         {testimonials.map((testimonial) => (
           <div key={testimonial.id} style={styles.testimonialItem}>

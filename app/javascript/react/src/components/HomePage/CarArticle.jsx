@@ -1,84 +1,105 @@
-import React from "react";
-import { car1 } from "C:/Users/santh/OneDrive/Desktop/park_easy/app/javascript/react/src/Images";
+import React, { useState, useEffect } from "react";
 
-const CarArticle = () => {
-  const sectionStyles = {
-    container: {
-      display: "flex",
-      alignItems: "center",
-      padding: "80px 32px",
-      backgroundColor: "black",
-      columnGap: "32px",
-    },
-    heading: {
-      fontSize: "4vw", // Responsive font size based on viewport width
-      fontWeight: "bold",
-      color: "#f1c40f",
-      flex: "1 1 100%", // Make the heading full width on smaller screens
-    },
-    paragraph: {
-      fontSize: "1.8vw",
-      marginTop: "16px",
-      maxWidth: "800px",
-      color: "white",
-      flex: "1 1 100%", // Make the paragraph full width on smaller screens
-    },
-    buttonContainer: {
-      display: "flex",
-      gap: "16px",
-      marginTop: "32px",
-      flexWrap: "wrap",
-    },
-    button: {
-      backgroundColor: "#ffd700",
-      color: "#0e0e0e",
-      border: "none",
-      borderRadius: "5px",
-      padding: "10px 20px",
-      cursor: "pointer",
-      flex: "1", // Adjust button size on smaller screens
-    },
-    secondaryButton: {
-      backgroundColor: "transparent",
-      color: "#ffffff",
-      border: "2px solid #ffffff",
-      borderRadius: "5px",
-      padding: "10px 20px",
-      cursor: "pointer",
-      flex: "1",
-    },
-    imageContainer: {
-      display: "flex",
-      justifyContent: "space-around",
-      flex: "1 1 100%", // Make the image full width on smaller screens
-    },
-    image: {
-      maxWidth: "100%",
-      height: "auto",
-    },
+const Hero = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 991);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const heroSectionStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: isMobile ? "0 20px" : "0 70px",
+    marginTop: isMobile ? "40px" : "84px",
+    flexDirection: isMobile ? "column" : "row",
+  };
+
+  const heroContentStyles = {
+    width: isMobile ? "100%" : "50%",
+    fontFamily: "Poppins, sans-serif",
+    textAlign: isMobile ? "center" : "left",
+  };
+
+  const mainHeadingStyles = {
+    color: "#ffd613",
+    fontSize: isMobile ? "40px" : "80px",
+    lineHeight: isMobile ? "44px" : "80px",
+    fontWeight: "400",
+  };
+
+  const subHeadingStyles = {
+    color: "#ffffff",
+    fontSize: "24px",
+    margin: isMobile ? "20px 0" : "36px 60px 0 0",
+  };
+
+  const buttonGroupStyles = {
+    display: "flex",
+    gap: "23px",
+    marginTop: "36px",
+    justifyContent: isMobile ? "center" : "flex-start",
+  };
+
+  const buttonStyles = {
+    borderRadius: "50px",
+    fontSize: "18px",
+    fontWeight: "500",
+    padding: isMobile ? "15px 30px" : "22px 44px",
+    cursor: "pointer",
+  };
+
+  const downloadButtonStyles = {
+    ...buttonStyles,
+    backgroundColor: "#ffd613",
+    color: "#000000",
+    border: "none",
+  };
+
+  const contactButtonStyles = {
+    ...buttonStyles,
+    backgroundColor: "transparent",
+    color: "#ffffff",
+    border: "1px solid #ffffff",
+  };
+
+  const heroImageStyles = {
+    width: isMobile ? "100%" : "50%",
+    aspectRatio: "0.84",
+    objectFit: "contain",
+    marginTop: isMobile ? "40px" : "0",
   };
 
   return (
-    <section style={sectionStyles.container} id="car-article">
-      <div>
-        <h1 style={sectionStyles.heading}>
+    <section style={heroSectionStyles}>
+      <div style={heroContentStyles}>
+        <h2 style={mainHeadingStyles}>
           Simplify Your Car Experience with Park.Easy
-        </h1>
-        <p style={sectionStyles.paragraph}>
+        </h2>
+        <p style={subHeadingStyles}>
           Park.Easy is an innovative app designed to simplify parking
           experiences for users by providing real-time information and seamless
           parking solutions.
         </p>
-        <div style={sectionStyles.buttonContainer}>
-          <button style={sectionStyles.button}>Download Now</button>
-          <button style={sectionStyles.secondaryButton}>Contact us</button>
+        <div style={buttonGroupStyles}>
+          <button style={downloadButtonStyles}>Download Now</button>
+          <button style={contactButtonStyles}>Contact us</button>
         </div>
       </div>
-      <div style={sectionStyles.imageContainer}>
-        <img src={car1} style={sectionStyles.image} alt="Sample" />
-      </div>
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/5edb5949663cb3f3b24b5c31ae8367b891216293d59db61f930118f440919b8c?placeholderIfAbsent=true&apiKey=1e478041483c415d8c6ecd66dd4ddacc"
+        alt="Park.Easy app interface"
+        loading="lazy"
+        style={heroImageStyles}
+      />
     </section>
   );
 };
 
-export default CarArticle;
+export default Hero;
