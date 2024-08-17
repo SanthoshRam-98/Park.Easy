@@ -7,7 +7,6 @@ import Testimonial from "./Testimonial";
 import AboutUs from "./AboutUs";
 import GetInTouch from "./GetInTouch";
 import Footer from "./Footer";
-
 const HomePage = () => {
   return (
     <div>

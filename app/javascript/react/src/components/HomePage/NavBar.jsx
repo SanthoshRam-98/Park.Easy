@@ -1,112 +1,170 @@
-import React from "react";
+import React, { useState } from "react";
 
-const NavBar = () => {
-  const navStyles = {
-    container: {
+function Header() {
+  // State to manage which link is hovered
+  const [hoveredLink, setHoveredLink] = useState(null);
+
+  const handleMouseEnter = (link) => {
+    setHoveredLink(link);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredLink(null);
+  };
+
+  const styles = {
+    mainHeader: {
+      backgroundColor: "#131212",
+      padding: "43px 70px 25px",
+      width: "100%",
+      position: "sticky",
+      top: 0,
+      zIndex: 1000,
+    },
+    headerContent: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: "16px 32px",
-      backgroundColor: "#1a1a1a",
-      flexWrap: "wrap", // Make the container wrap for smaller screens
     },
-    title: {
-      fontSize: "24px",
-      fontWeight: "bold",
-      color: "#ffffff",
+    logo: {
+      color: "#fff",
+      fontSize: "32px",
+      fontWeight: 600,
+      fontFamily: "Poppins, sans-serif",
+      letterSpacing: "4.8px",
     },
-    navLinks: {
+    mainNav: {
       display: "flex",
-      gap: "24px",
-      flexWrap: "wrap",
-      justifyContent: "flex-end", // Align links to the right
+      alignItems: "center",
     },
-    link: {
-      color: "#ffffff",
+    navList: {
+      display: "flex",
+      gap: "30px",
+      listStyle: "none",
+      margin: 0,
+      padding: 0,
+    },
+    navLink: (link) => ({
+      color: hoveredLink === link ? "#ffd613" : "#b5b5b5",
+      fontSize: "20px",
+      fontWeight: 400,
+      fontFamily: "Poppins, sans-serif",
       textDecoration: "none",
-      fontSize: "16px",
-      position: "relative",
-      fontSize: "1.2em", // Ensure only one instance of fontSize
-      transition: "color 0.3s ease",
-    },
-    linkHover: {
-      color: "#f1c40f", // Yellow color for hover
-    },
-    linkAfter: {
-      content: "''",
-      position: "absolute",
-      left: 0,
-      bottom: -2,
-      width: "100%",
-      height: "2px",
-      backgroundColor: "#f1c40f", // Yellow color for the underline
-      transform: "scaleX(0)",
-      transition: "transform 0.3s ease",
-    },
-    linkHoverAfter: {
-      transform: "scaleX(1)",
-    },
-    button: {
-      backgroundColor: "#f1c40f",
-      color: "#000000",
-      padding: "8px 16px",
-      borderRadius: "8px",
+      transition: "color 0.3s ease, border-bottom 0.3s ease",
+      borderBottom: hoveredLink === link ? "2px solid #ffd613" : "none",
+    }),
+    loginBtn: {
+      backgroundColor: "#ffd613",
       border: "none",
+      borderRadius: "50px",
+      color: "#000",
+      fontSize: "18px",
+      fontWeight: 500,
+      fontFamily: "Poppins, sans-serif",
+      padding: "11px 60px",
+      marginLeft: "30px",
       cursor: "pointer",
-      marginTop: "8px",
+      transition: "background-color 0.3s ease",
     },
-    buttonHover: {
-      backgroundColor: "rgba(255, 255, 0, 0.888)", // Background color on hover
+    loginBtnHover: {
+      backgroundColor: "#e0c20b",
+    },
+    "@media (max-width: 991px)": {
+      mainHeader: {
+        padding: "20px",
+      },
+      headerContent: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+      },
+      mainNav: {
+        marginTop: "20px",
+        flexDirection: "column",
+        alignItems: "flex-start",
+      },
+      navList: {
+        flexDirection: "column",
+        gap: "10px",
+      },
+      loginBtn: {
+        marginLeft: 0,
+        marginTop: "20px",
+      },
     },
   };
 
   return (
-    <header style={navStyles.container}>
-      <div style={navStyles.title}>Park.Easy</div>
-      <nav style={navStyles.navLinks}>
-        {[
-          "Home",
-          "Parking",
-          "List your Space",
-          "Plan & Pricing",
-          "About Us",
-          "Contact Us",
-        ].map((text, index) => (
-          <div key={index} style={{ position: "relative" }}>
-            <a
-              href="#"
-              style={navStyles.link}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = navStyles.linkHover.color;
-                e.currentTarget.querySelector("span").style.transform =
-                  navStyles.linkHoverAfter.transform;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "#ffffff";
-                e.currentTarget.querySelector("span").style.transform =
-                  "scaleX(0)";
-              }}
-            >
-              {text}
-              <span style={navStyles.linkAfter}></span>
-            </a>
-          </div>
-        ))}
-      </nav>
-      <button
-        style={navStyles.button}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.backgroundColor =
-            navStyles.buttonHover.backgroundColor)
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.backgroundColor = "#f1c40f")
-        }
-      >
-        Log In
-      </button>
+    <header style={styles.mainHeader}>
+      <div style={styles.headerContent}>
+        <h1 style={styles.logo}>Park.Easy</h1>
+        <nav style={styles.mainNav}>
+          <ul style={styles.navList}>
+            <li>
+              <a
+                href="/"
+                style={styles.navLink("home")}
+                onMouseEnter={() => handleMouseEnter("home")}
+                onMouseLeave={handleMouseLeave}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="/parking"
+                style={styles.navLink("parking")}
+                onMouseEnter={() => handleMouseEnter("parking")}
+                onMouseLeave={handleMouseLeave}
+              >
+                Parking
+              </a>
+            </li>
+            <li>
+              <a
+                href="/list-space"
+                style={styles.navLink("list-space")}
+                onMouseEnter={() => handleMouseEnter("list-space")}
+                onMouseLeave={handleMouseLeave}
+              >
+                List your Space
+              </a>
+            </li>
+            <li>
+              <a
+                href="/plan-pricing"
+                style={styles.navLink("plan-pricing")}
+                onMouseEnter={() => handleMouseEnter("plan-pricing")}
+                onMouseLeave={handleMouseLeave}
+              >
+                Plan & Pricing
+              </a>
+            </li>
+            <li>
+              <a
+                href="/about"
+                style={styles.navLink("about")}
+                onMouseEnter={() => handleMouseEnter("about")}
+                onMouseLeave={handleMouseLeave}
+              >
+                About Us
+              </a>
+            </li>
+            <li>
+              <a
+                href="/contact"
+                style={styles.navLink("contact")}
+                onMouseEnter={() => handleMouseEnter("contact")}
+                onMouseLeave={handleMouseLeave}
+              >
+                Contact Us
+              </a>
+            </li>
+          </ul>
+          <button style={styles.loginBtn}>Log In</button>
+        </nav>
+      </div>
     </header>
   );
-};
+}
 
-export default NavBar;
+export default Header;
