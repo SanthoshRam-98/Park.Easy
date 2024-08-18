@@ -155,6 +155,7 @@ function Header() {
             }}
             onMouseEnter={() => handleMouseEnter("login")}
             onMouseLeave={handleMouseLeave}
+            onClick={() => (window.location.href = "/log_in")}
           >
             Log In
           </button>

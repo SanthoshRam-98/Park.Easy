@@ -127,7 +127,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="/about-us"
+                  href="/about_us"
                   style={navLinkStyles}
                   onMouseOver={(e) =>
                     (e.target.style.color = navLinkHoverStyles.color)
@@ -155,7 +155,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="/list-your-space"
+                  href="/list_space"
                   style={navLinkStyles}
                   onMouseOver={(e) =>
                     (e.target.style.color = navLinkHoverStyles.color)
@@ -169,7 +169,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="/plan-pricing"
+                  href="/plan_pricing"
                   style={navLinkStyles}
                   onMouseOver={(e) =>
                     (e.target.style.color = navLinkHoverStyles.color)
@@ -183,7 +183,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="/contact-us"
+                  href="/contact_us"
                   style={navLinkStyles}
                   onMouseOver={(e) =>
                     (e.target.style.color = navLinkHoverStyles.color)

@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../HomePage/Footer";
+import LoginPage from "./LoginPage";
 
 function LogIn() {
   const pageStyle = {
@@ -8,7 +8,7 @@ function LogIn() {
 
   return (
     <div style={pageStyle}>
-      <Footer />
+      <LoginPage />
     </div>
   );
 }
