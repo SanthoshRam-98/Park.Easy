@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 function Header() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
   const [hoveredLink, setHoveredLink] = useState(null);
+  const [activeLink, setActiveLink] = useState("home");
 
   useEffect(() => {
     const handleResize = () => {
@@ -16,12 +17,31 @@ function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    // Update active link based on current path
+    const path = window.location.pathname;
+    const linkMap = {
+      "/": "home",
+      "/parking": "parking",
+      "/list_space": "list_space",
+      "/plan_pricing": "plan_pricing",
+      "/about_us": "about",
+      "/contact_us": "contact",
+    };
+    setActiveLink(linkMap[path] || "home");
+  }, []);
+
   const handleMouseEnter = (link) => {
     setHoveredLink(link);
   };
 
   const handleMouseLeave = () => {
     setHoveredLink(null);
+  };
+
+  const handleNavClick = (link, href) => {
+    setActiveLink(link);
+    window.location.href = href; // Navigate to the new page
   };
 
   const styles = {
@@ -61,12 +81,14 @@ function Header() {
       flexDirection: isMobile ? "column" : "row",
     },
     navLink: (link) => ({
-      color: hoveredLink === link ? "#ffd613" : "#b5b5b5",
+      color:
+        hoveredLink === link || activeLink === link ? "#ffd613" : "#b5b5b5",
       fontSize: "20px",
       fontWeight: 400,
       fontFamily: "Poppins, sans-serif",
-      textDecoration: "none",
-      transition: "color 0.3s ease",
+      textDecoration:
+        hoveredLink === link || activeLink === link ? "underline" : "none",
+      transition: "color 0.3s ease, textDecoration 0.3s ease",
       cursor: "pointer",
     }),
     loginBtn: {
@@ -94,69 +116,43 @@ function Header() {
         <h1 style={styles.logo}>Park.Easy</h1>
         <nav style={styles.mainNav}>
           <ul style={styles.navList}>
-            <li>
-              <a
-                href="/"
-                style={styles.navLink("home")}
-                onMouseEnter={() => handleMouseEnter("home")}
-                onMouseLeave={handleMouseLeave}
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="/parking"
-                style={styles.navLink("parking")}
-                onMouseEnter={() => handleMouseEnter("parking")}
-                onMouseLeave={handleMouseLeave}
-              >
-                Parking
-              </a>
-            </li>
-            <li>
-              <a
-                href="/list-space"
-                style={styles.navLink("list-space")}
-                onMouseEnter={() => handleMouseEnter("list-space")}
-                onMouseLeave={handleMouseLeave}
-              >
-                List your Space
-              </a>
-            </li>
-            <li>
-              <a
-                href="/plan-pricing"
-                style={styles.navLink("plan-pricing")}
-                onMouseEnter={() => handleMouseEnter("plan-pricing")}
-                onMouseLeave={handleMouseLeave}
-              >
-                Plan & Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="/about"
-                style={styles.navLink("about")}
-                onMouseEnter={() => handleMouseEnter("about")}
-                onMouseLeave={handleMouseLeave}
-              >
-                About Us
-              </a>
-            </li>
-            <li>
-              <a
-                href="/contact"
-                style={styles.navLink("contact")}
-                onMouseEnter={() => handleMouseEnter("contact")}
-                onMouseLeave={handleMouseLeave}
-              >
-                Contact Us
-              </a>
-            </li>
+            {[
+              { name: "Home", link: "home", href: "/" },
+              { name: "Parking", link: "parking", href: "/parking" },
+              {
+                name: "List your Space",
+                link: "list_space",
+                href: "/list_space",
+              },
+              {
+                name: "Plan & Pricing",
+                link: "plan_pricing",
+                href: "/plan_pricing",
+              },
+              { name: "About Us", link: "about", href: "/about_us" },
+              { name: "Contact Us", link: "contact", href: "/contact_us" },
+            ].map(({ name, link, href }) => (
+              <li key={link}>
+                <a
+                  href={href}
+                  style={styles.navLink(link)}
+                  onMouseEnter={() => handleMouseEnter(link)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevent default link behavior
+                    handleNavClick(link, href); // Handle navigation
+                  }}
+                >
+                  {name}
+                </a>
+              </li>
+            ))}
           </ul>
           <button
-            style={styles.loginBtn}
+            style={{
+              ...styles.loginBtn,
+              ...(hoveredLink === "login" ? styles.loginBtnHover : {}),
+            }}
             onMouseEnter={() => handleMouseEnter("login")}
             onMouseLeave={handleMouseLeave}
           >
