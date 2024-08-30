@@ -3,9 +3,49 @@ import { Eye, EyeSlash } from "react-bootstrap-icons";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("/users/sign_in", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector("[name=csrf-token]").content,
+        },
+        body: JSON.stringify({
+          user: {
+            email: email,
+            password: password,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        // Handle successful login (e.g., redirect to a dashboard or homepage)
+        setSuccess("Login successful!");
+        setError(""); // Clear any previous errors
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000); // Redirect after 2 seconds
+      } else {
+        // Handle failed login
+        const data = await response.json();
+        setError(data.error || "Invalid email or password.");
+        setSuccess(""); // Clear any previous success messages
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+      setSuccess(""); // Clear any previous success messages
+    }
   };
 
   const inputStyles = {
@@ -16,137 +56,12 @@ function LoginPage() {
     padding: "13px 56px",
     font: "400 20px Poppins, sans-serif",
     border: "1px solid #b5b5b5",
-    backgroundColor: "transparent", // Ensure background stays transparent
-    outline: "none", // To avoid default outline
-  };
-
-  const formGroupStyles = {
-    marginBottom: "24px",
-  };
-
-  const labelStyles = {
-    display: "block",
-    marginBottom: "8px",
-    font: "500 20px Poppins, sans-serif",
-    textAlign: "start",
-  };
-
-  const passwordInputStyles = {
-    position: "relative",
-  };
-
-  const imgStyles = {
-    position: "absolute",
-    right: "20px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    cursor: "pointer",
-    color: "#b5b5b5", // Ensure the icon is visible
-  };
-
-  const formOptionsStyles = {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "36px",
-    font: "16px Poppins, sans-serif",
-  };
-
-  const rememberMeStyles = {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    fontWeight: "300",
-  };
-
-  const forgotPasswordStyles = {
-    fontWeight: "500",
-    cursor: "pointer",
-    color: "#fff",
-  };
-
-  const submitButtonStyles = {
-    borderRadius: "10px",
-    width: "100%",
-    color: "#000",
-    padding: "13px 0",
-    font: "600 20px Poppins, sans-serif",
-    backgroundColor: "#ffd613",
-    border: "none",
-    cursor: "pointer",
-  };
-
-  const googleLoginStyles = {
-    borderRadius: "10px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "16px",
-    width: "100%",
-    padding: "13px 0",
-    marginTop: "24px",
-    font: "400 20px Poppins, sans-serif",
     backgroundColor: "transparent",
-    border: "1px solid #b5b5b5",
-    color: "#fff",
-    cursor: "pointer",
+    outline: "none",
   };
 
-  const termsTextStyles = {
-    color: "#b5b5b5",
-    textAlign: "center",
-    marginTop: "24px",
-    font: "300 16px Poppins, sans-serif",
-  };
+  // ... (other styles remain the same)
 
-  const termsLinkStyles = {
-    textDecoration: "underline",
-    color: "#fff",
-    cursor: "pointer",
-  };
-
-  const footerContainerStyles = {
-    backgroundColor: "#0f0d0d",
-    alignSelf: "stretch",
-    display: "flex",
-    marginTop: "104px",
-    width: "100%",
-    flexDirection: "column",
-    alignItems: "center",
-    fontFamily: "Poppins, sans-serif",
-    padding: "63px 80px 40px",
-  };
-
-  const footerContentStyles = {
-    display: "flex",
-    width: "293px",
-    maxWidth: "100%",
-    flexDirection: "column",
-    alignItems: "center",
-  };
-
-  const footerLogoStyles = {
-    fontSize: "48px",
-    fontWeight: "600",
-    letterSpacing: "7.2px",
-  };
-
-  const socialIconsStyles = {
-    aspectRatio: "7.25",
-    objectFit: "contain",
-    objectPosition: "center",
-    width: "260px",
-    margin: "64px 0 0",
-  };
-
-  const copyrightStyles = {
-    fontSize: "20px",
-    fontWeight: "400",
-    marginTop: "36px",
-  };
-
-  const formStyle = {
-    marginTop: "106px",
-  };
   return (
     <div
       style={{
@@ -215,54 +130,143 @@ function LoginPage() {
           Get started today by entering just a few details.
         </p>
 
-        <form style={formStyle}>
-          <div style={formGroupStyles}>
-            <label htmlFor="email" style={labelStyles}>
+        {error && (
+          <div style={{ color: "red", marginBottom: "24px" }}>{error}</div>
+        )}
+        {success && (
+          <div style={{ color: "green", marginBottom: "24px" }}>{success}</div>
+        )}
+
+        <form onSubmit={handleSubmit} style={{ marginTop: "106px" }}>
+          <div style={{ marginBottom: "24px" }}>
+            <label
+              htmlFor="email"
+              style={{
+                display: "block",
+                marginBottom: "8px",
+                font: "500 20px Poppins, sans-serif",
+                textAlign: "start",
+              }}
+            >
               Email*
             </label>
             <input
               type="email"
               id="email"
               placeholder="Enter your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               style={inputStyles}
               required
             />
           </div>
-          <div style={formGroupStyles}>
-            <label htmlFor="password" style={labelStyles}>
+          <div style={{ marginBottom: "24px" }}>
+            <label
+              htmlFor="password"
+              style={{
+                display: "block",
+                marginBottom: "8px",
+                font: "500 20px Poppins, sans-serif",
+                textAlign: "start",
+              }}
+            >
               Password*
             </label>
-            <div style={passwordInputStyles}>
+            <div style={{ position: "relative" }}>
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="Enter your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 style={inputStyles}
                 required
               />
               {showPassword ? (
                 <EyeSlash
-                  style={imgStyles}
+                  style={{
+                    position: "absolute",
+                    right: "20px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#b5b5b5",
+                  }}
                   onClick={togglePasswordVisibility}
                 />
               ) : (
-                <Eye style={imgStyles} onClick={togglePasswordVisibility} />
+                <Eye
+                  style={{
+                    position: "absolute",
+                    right: "20px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#b5b5b5",
+                  }}
+                  onClick={togglePasswordVisibility}
+                />
               )}
             </div>
           </div>
-          <div style={formOptionsStyles}>
-            <div style={rememberMeStyles}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "36px",
+              font: "16px Poppins, sans-serif",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                fontWeight: "300",
+              }}
+            >
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">Remember me</label>
             </div>
-            <a href="/" style={forgotPasswordStyles}>
+            <a
+              href="/"
+              style={{ fontWeight: "500", cursor: "pointer", color: "#fff" }}
+            >
               Forgot Password
             </a>
           </div>
-          <button type="submit" style={submitButtonStyles}>
+          <button
+            type="submit"
+            style={{
+              borderRadius: "10px",
+              width: "100%",
+              color: "#000",
+              padding: "13px 0",
+              font: "600 20px Poppins, sans-serif",
+              backgroundColor: "#ffd613",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
             Log In
           </button>
-          <button style={googleLoginStyles}>
+          <button
+            style={{
+              borderRadius: "10px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "16px",
+              width: "100%",
+              padding: "13px 0",
+              marginTop: "24px",
+              font: "400 20px Poppins, sans-serif",
+              backgroundColor: "transparent",
+              border: "1px solid #b5b5b5",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
             <img
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/bea5ef7ae3dbf2ed8d538030a0b3e0102b38917bd99a5d45e793d8d63c7b3a77?placeholderIfAbsent=true&apiKey=1e478041483c415d8c6ecd66dd4ddacc"
               alt="Google Logo"
@@ -270,21 +274,72 @@ function LoginPage() {
             <span>Log In with Google</span>
           </button>
         </form>
-        <p style={termsTextStyles}>
+        <p
+          style={{
+            color: "#b5b5b5",
+            textAlign: "center",
+            marginTop: "24px",
+            font: "300 16px Poppins, sans-serif",
+          }}
+        >
           By continuing, you are indicating that <br />
-          you accept our <span style={termsLinkStyles}>Terms of Service</span>.
+          you accept our{" "}
+          <span
+            style={{
+              textDecoration: "underline",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            Terms of Service
+          </span>
+          .
         </p>
       </main>
 
-      <footer style={footerContainerStyles}>
-        <div style={footerContentStyles}>
-          <div style={footerLogoStyles}>Park.Easy</div>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/48dbb8623ebaa20e6776d6e40112dbd05e90c1bcf4150510ac68eb9225551153?placeholderIfAbsent=true&apiKey=1e478041483c415d8c6ecd66dd4ddacc"
-            alt="Social Media Icons"
-            style={socialIconsStyles}
-          />
-          <div style={copyrightStyles}>© 2024 by Park.Easy</div>
+      <footer
+        style={{
+          backgroundColor: "#0f0d0d",
+          alignSelf: "stretch",
+          display: "flex",
+          marginTop: "104px",
+          width: "100%",
+          flexDirection: "column",
+          alignItems: "center",
+          fontFamily: "Poppins, sans-serif",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            gap: "40px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            padding: "54px 0",
+            fontWeight: "300",
+          }}
+        >
+          <span style={{ fontWeight: "500", cursor: "pointer" }}>
+            Privacy Policy
+          </span>
+          <span style={{ fontWeight: "500", cursor: "pointer" }}>
+            Terms of Service
+          </span>
+          <span style={{ fontWeight: "500", cursor: "pointer" }}>Help</span>
+        </div>
+        <div
+          style={{
+            padding: "24px 0",
+            fontSize: "20px",
+            color: "#b5b5b5",
+            borderTop: "1px solid #313131",
+            display: "flex",
+            gap: "6px",
+            justifyContent: "center",
+          }}
+        >
+          <span>© 2024 Park.Easy.</span>
+          <span>All rights reserved.</span>
         </div>
       </footer>
     </div>
