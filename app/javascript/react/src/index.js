@@ -7,6 +7,9 @@ import PlanPricing from "./components/PlanPricing/PlanPricing";
 import AboutUs from "./components/AboutUs/AboutUs";
 import ContactUs from "./components/ContactUs/ContactUs";
 import LogIn from "./components/LogIn/LogIn";
+import SignupPage from "./components/SignUp/SignUpPage";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+
 document.addEventListener("DOMContentLoaded", () => {
   // Handle HomePage rendering
   const homePageElement = document.getElementById("welcome");
@@ -50,10 +53,24 @@ document.addEventListener("DOMContentLoaded", () => {
     contactUsRoot.render(<ContactUs />);
   }
 
-  // Handle AboutUsPage rendering
+  // Handle LoginPage rendering
   const loginElement = document.getElementById("logIn");
   if (loginElement) {
     const logInRoot = ReactDOM.createRoot(loginElement);
     logInRoot.render(<LogIn />);
+  }
+
+  // Handle SignUpPage rendering
+  const signUpElement = document.getElementById("signUp");
+  if (signUpElement) {
+    const signUpnRoot = ReactDOM.createRoot(signUpElement);
+    signUpnRoot.render(<SignupPage />);
+  }
+
+  // Handle ForgotPasswordPage rendering
+  const forgotPasswordElement = document.getElementById("forgotPassword");
+  if (forgotPasswordElement) {
+    const forgotPasswordRoot = ReactDOM.createRoot(forgotPasswordElement);
+    forgotPasswordRoot.render(<ForgotPassword />);
   }
 });

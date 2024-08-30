@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
-  }
+    sessions: 'users/sessions',
+  }, skip: [:registrations] # Skip default registration routes
 
   devise_scope :user do
-    post 'users/sign_in', to: 'users/sessions#create'
-    get 'log_in', to: 'users/sessions#new', as: :log_in
+    get 'log_in', to: 'react_pages#log_in', as: :log_in
+    get 'users/sign_up', to: 'react_pages#sign_up', as: :new_user_registration
+    get 'forgot_password', to: 'react_pages#forgot_password', as: :forgot_password
+    post 'users', to: 'users/registrations#create', as: :user_registration
   end
 
   root "home_page#index"

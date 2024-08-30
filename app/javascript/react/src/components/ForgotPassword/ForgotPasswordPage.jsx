@@ -1,52 +1,9 @@
 import React, { useState } from "react";
-import { Eye, EyeSlash } from "react-bootstrap-icons";
 
-function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
+function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  // Ensure your React login request sends parameters like this:
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch("/users/sign_in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector("[name=csrf-token]").content,
-        },
-        body: JSON.stringify({
-          user: {
-            email: email,
-            password: password,
-          },
-        }),
-      });
-
-      if (response.ok) {
-        setSuccess("Login successful!");
-        setError("");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
-      } else {
-        const data = await response.json();
-        setError(data.message || "Invalid email or password.");
-        setSuccess("");
-      }
-    } catch (error) {
-      setError("An error occurred. Please try again.");
-      setSuccess("");
-    }
-  };
 
   const inputStyles = {
     borderRadius: "10px",
@@ -58,6 +15,37 @@ function LoginPage() {
     border: "1px solid #b5b5b5",
     backgroundColor: "transparent",
     outline: "none",
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("/users/password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector("[name=csrf-token]").content,
+        },
+        body: JSON.stringify({
+          user: {
+            email: email,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        setMessage("If the email exists, a password reset link has been sent.");
+        setError("");
+      } else {
+        const data = await response.json();
+        setError(data.error || "An error occurred. Please try again.");
+        setMessage("");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+      setMessage("");
+    }
   };
 
   return (
@@ -122,17 +110,17 @@ function LoginPage() {
             font: "400 80px/1 Poppins, sans-serif",
           }}
         >
-          Log In
+          Forgot Password
         </h1>
         <p style={{ marginTop: "36px", font: "400 24px Poppins, sans-serif" }}>
-          Get started today by entering just a few details.
+          Enter your email address to reset your password.
         </p>
 
         {error && (
           <div style={{ color: "red", marginBottom: "24px" }}>{error}</div>
         )}
-        {success && (
-          <div style={{ color: "green", marginBottom: "24px" }}>{success}</div>
+        {message && (
+          <div style={{ color: "green", marginBottom: "24px" }}>{message}</div>
         )}
 
         <form onSubmit={handleSubmit} style={{ marginTop: "106px" }}>
@@ -158,81 +146,6 @@ function LoginPage() {
               required
             />
           </div>
-          <div style={{ marginBottom: "24px" }}>
-            <label
-              htmlFor="password"
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                font: "500 20px Poppins, sans-serif",
-                textAlign: "start",
-              }}
-            >
-              Password*
-            </label>
-            <div style={{ position: "relative" }}>
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                placeholder="Enter your Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={inputStyles}
-                required
-              />
-              {showPassword ? (
-                <EyeSlash
-                  style={{
-                    position: "absolute",
-                    right: "20px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    color: "#b5b5b5",
-                  }}
-                  onClick={togglePasswordVisibility}
-                />
-              ) : (
-                <Eye
-                  style={{
-                    position: "absolute",
-                    right: "20px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    color: "#b5b5b5",
-                  }}
-                  onClick={togglePasswordVisibility}
-                />
-              )}
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "36px",
-              font: "16px Poppins, sans-serif",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                fontWeight: "300",
-              }}
-            >
-              <input type="checkbox" id="remember" />
-              <label htmlFor="remember">Remember me</label>
-            </div>
-            <a
-              href="/forgot_password"
-              style={{ fontWeight: "500", cursor: "pointer", color: "#fff" }}
-            >
-              Forgot Password
-            </a>
-          </div>
           <button
             type="submit"
             style={{
@@ -246,53 +159,10 @@ function LoginPage() {
               cursor: "pointer",
             }}
           >
-            Log In
-          </button>
-          <button
-            style={{
-              borderRadius: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "16px",
-              width: "100%",
-              padding: "13px 0",
-              marginTop: "24px",
-              font: "400 20px Poppins, sans-serif",
-              backgroundColor: "transparent",
-              border: "1px solid #b5b5b5",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/bea5ef7ae3dbf2ed8d538030a0b3e0102b38917bd99a5d45e793d8d63c7b3a77?placeholderIfAbsent=true&apiKey=1e478041483c415d8c6ecd66dd4ddacc"
-              alt="Google Logo"
-            />
-            <span>Log In with Google</span>
+            Submit
           </button>
         </form>
-        <p
-          style={{
-            color: "#b5b5b5",
-            textAlign: "center",
-            marginTop: "24px",
-            font: "300 16px Poppins, sans-serif",
-          }}
-        >
-          By continuing, you are indicating that <br />
-          you accept our{" "}
-          <span
-            style={{
-              textDecoration: "underline",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Terms of Service
-          </span>
-          .
-        </p>
+
         <p
           style={{
             marginTop: "24px",
@@ -300,12 +170,12 @@ function LoginPage() {
             color: "#b5b5b5",
           }}
         >
-          Don't have an account?{" "}
+          Remembered your password?{" "}
           <a
-            href="/users/sign_up"
+            href="/log_in"
             style={{ color: "#ffd613", textDecoration: "underline" }}
           >
-            Sign Up
+            Log In
           </a>
         </p>
       </main>
@@ -359,4 +229,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default ForgotPasswordPage;

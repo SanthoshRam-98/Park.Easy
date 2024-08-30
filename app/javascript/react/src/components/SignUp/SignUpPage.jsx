@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 
-function LoginPage() {
+function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -12,12 +13,16 @@ function LoginPage() {
     setShowPassword(!showPassword);
   };
 
-  // Ensure your React login request sends parameters like this:
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (password !== passwordConfirmation) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
-      const response = await fetch("/users/sign_in", {
+      const response = await fetch("/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,19 +32,20 @@ function LoginPage() {
           user: {
             email: email,
             password: password,
+            password_confirmation: passwordConfirmation,
           },
         }),
       });
 
       if (response.ok) {
-        setSuccess("Login successful!");
+        setSuccess("Signup successful! Please log in.");
         setError("");
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/log_in"; // Redirect to login page
         }, 2000);
       } else {
         const data = await response.json();
-        setError(data.message || "Invalid email or password.");
+        setError(data.message || "Signup failed. Please try again.");
         setSuccess("");
       }
     } catch (error) {
@@ -72,48 +78,7 @@ function LoginPage() {
         overflow: "hidden",
       }}
     >
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-          maxWidth: "1300px",
-          gap: "20px",
-          whiteSpace: "nowrap",
-          flexWrap: "wrap",
-        }}
-      >
-        <div
-          style={{
-            letterSpacing: "7.2px",
-            font: "600 48px Poppins, sans-serif",
-          }}
-        >
-          Park.Easy
-        </div>
-        <div
-          style={{
-            borderRadius: "10px",
-            display: "flex",
-            gap: "16px",
-            margin: "auto 0",
-            padding: "16px 27px 16px 12px",
-            font: "400 20px Urbanist, sans-serif",
-            border: "1px solid #fff",
-          }}
-        >
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/75cc933a4b1abaa8c117d065f963b16f91c9235b50daff623ebaaf9f31af3a72?placeholderIfAbsent=true&apiKey=1e478041483c415d8c6ecd66dd4ddacc"
-            alt=""
-          />
-          <span>English</span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/6aaa11c34d5622c996fce99ebf98e109deacad80cb2bb70f609a61b9a4c323fe?placeholderIfAbsent=true&apiKey=1e478041483c415d8c6ecd66dd4ddacc"
-            alt=""
-          />
-        </div>
-      </header>
-
+      {/* Header, Footer, and other UI elements */}
       <main style={{ textAlign: "center", maxWidth: "534px" }}>
         <h1
           style={{
@@ -122,10 +87,10 @@ function LoginPage() {
             font: "400 80px/1 Poppins, sans-serif",
           }}
         >
-          Log In
+          Sign Up
         </h1>
         <p style={{ marginTop: "36px", font: "400 24px Poppins, sans-serif" }}>
-          Get started today by entering just a few details.
+          Get started by entering your details below.
         </p>
 
         {error && (
@@ -207,31 +172,29 @@ function LoginPage() {
               )}
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "36px",
-              font: "16px Poppins, sans-serif",
-            }}
-          >
-            <div
+          <div style={{ marginBottom: "24px" }}>
+            <label
+              htmlFor="password_confirmation"
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                fontWeight: "300",
+                display: "block",
+                marginBottom: "8px",
+                font: "500 20px Poppins, sans-serif",
+                textAlign: "start",
               }}
             >
-              <input type="checkbox" id="remember" />
-              <label htmlFor="remember">Remember me</label>
+              Confirm Password*
+            </label>
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password_confirmation"
+                placeholder="Confirm your Password"
+                value={passwordConfirmation}
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                style={inputStyles}
+                required
+              />
             </div>
-            <a
-              href="/forgot_password"
-              style={{ fontWeight: "500", cursor: "pointer", color: "#fff" }}
-            >
-              Forgot Password
-            </a>
           </div>
           <button
             type="submit"
@@ -246,32 +209,30 @@ function LoginPage() {
               cursor: "pointer",
             }}
           >
-            Log In
+            Sign Up
           </button>
-          <button
+        </form>
+
+        <p
+          style={{
+            marginTop: "24px",
+            font: "400 16px Poppins, sans-serif",
+            color: "#b5b5b5",
+          }}
+        >
+          Already have an account?{" "}
+          <a
+            href="/log_in"
             style={{
-              borderRadius: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "16px",
-              width: "100%",
-              padding: "13px 0",
-              marginTop: "24px",
-              font: "400 20px Poppins, sans-serif",
-              backgroundColor: "transparent",
-              border: "1px solid #b5b5b5",
-              color: "#fff",
+              color: "#ffd613",
+              textDecoration: "underline",
               cursor: "pointer",
             }}
           >
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/bea5ef7ae3dbf2ed8d538030a0b3e0102b38917bd99a5d45e793d8d63c7b3a77?placeholderIfAbsent=true&apiKey=1e478041483c415d8c6ecd66dd4ddacc"
-              alt="Google Logo"
-            />
-            <span>Log In with Google</span>
-          </button>
-        </form>
+            Log In
+          </a>
+        </p>
+
         <p
           style={{
             color: "#b5b5b5",
@@ -292,21 +253,6 @@ function LoginPage() {
             Terms of Service
           </span>
           .
-        </p>
-        <p
-          style={{
-            marginTop: "24px",
-            font: "300 16px Poppins, sans-serif",
-            color: "#b5b5b5",
-          }}
-        >
-          Don't have an account?{" "}
-          <a
-            href="/users/sign_up"
-            style={{ color: "#ffd613", textDecoration: "underline" }}
-          >
-            Sign Up
-          </a>
         </p>
       </main>
 
@@ -359,4 +305,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignupPage;
