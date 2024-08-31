@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 
 function LoginPage() {
@@ -7,44 +7,44 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [csrfToken, setCsrfToken] = useState("");
+
+  // Fetch CSRF token from the Rails application
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      const response = await fetch("/csrf_token");
+      const data = await response.json();
+      setCsrfToken(data.csrfToken);
+    };
+
+    fetchCsrfToken();
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  // Ensure your React login request sends parameters like this:
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await fetch("/users/sign_in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector("[name=csrf-token]").content,
-        },
-        body: JSON.stringify({
-          user: {
-            email: email,
-            password: password,
-          },
-        }),
-      });
+    const response = await fetch("/users/sign_in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken, // Add CSRF token here
+      },
+      body: JSON.stringify({ user: { email, password } }),
+    });
 
-      if (response.ok) {
-        setSuccess("Login successful!");
-        setError("");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
-      } else {
-        const data = await response.json();
-        setError(data.message || "Invalid email or password.");
-        setSuccess("");
-      }
-    } catch (error) {
-      setError("An error occurred. Please try again.");
-      setSuccess("");
+    const data = await response.json();
+
+    if (response.ok) {
+      // Redirect to the UsersHomePage by reloading the page with the email passed as a query parameter
+      window.location.href = `/users_home_page?email=${encodeURIComponent(
+        email
+      )}`;
+    } else {
+      setError(data.message);
     }
   };
 

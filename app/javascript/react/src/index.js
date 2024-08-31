@@ -9,6 +9,7 @@ import ContactUs from "./components/ContactUs/ContactUs";
 import LogIn from "./components/LogIn/LogIn";
 import SignupPage from "./components/SignUp/SignUpPage";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import UsersHomePage from "./components/UserHomePage/UsersHomePage";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Handle HomePage rendering
@@ -72,5 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (forgotPasswordElement) {
     const forgotPasswordRoot = ReactDOM.createRoot(forgotPasswordElement);
     forgotPasswordRoot.render(<ForgotPassword />);
+  }
+
+  // Handle UsersHomePage rendering
+  const usersHomePageElement = document.getElementById("usersHomePage");
+  if (usersHomePageElement) {
+    const usersHomePageRoot = ReactDOM.createRoot(usersHomePageElement);
+    usersHomePageRoot.render(<UsersHomePage />);
   }
 });
