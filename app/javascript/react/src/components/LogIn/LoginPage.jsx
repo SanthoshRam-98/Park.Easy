@@ -9,15 +9,20 @@ function LoginPage() {
   const [success, setSuccess] = useState("");
   const [csrfToken, setCsrfToken] = useState("");
 
-  // Fetch CSRF token from the Rails application
   useEffect(() => {
-    const fetchCsrfToken = async () => {
-      const response = await fetch("/csrf_token");
-      const data = await response.json();
-      setCsrfToken(data.csrfToken);
-    };
+    // Directly read CSRF token from meta tag
+    const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+    if (csrfMetaTag) {
+      setCsrfToken(csrfMetaTag.getAttribute("content"));
+    }
 
-    fetchCsrfToken();
+    // Check if there's a flash message in the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const flashMessage = urlParams.get("flash");
+
+    if (flashMessage) {
+      setError(decodeURIComponent(flashMessage));
+    }
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -27,24 +32,29 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("/users/sign_in", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": csrfToken, // Add CSRF token here
-      },
-      body: JSON.stringify({ user: { email, password } }),
-    });
+    try {
+      const response = await fetch("/users/sign_in", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
+        },
+        body: JSON.stringify({ user: { email, password } }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      // Redirect to the UsersHomePage by reloading the page with the email passed as a query parameter
-      window.location.href = `/users_home_page?email=${encodeURIComponent(
-        email
-      )}`;
-    } else {
-      setError(data.message);
+      if (response.ok) {
+        // Redirect with location.replace to ensure session preservation
+        window.location.replace(
+          `/users_home_page?email=${encodeURIComponent(email)}`
+        );
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      setError("An unexpected error occurred. Please try again.");
     }
   };
 

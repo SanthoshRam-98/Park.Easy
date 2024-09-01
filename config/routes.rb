@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get 'forgot_password', to: 'react_pages#forgot_password', as: :forgot_password
     post 'users', to: 'users/registrations#create', as: :user_registration
     delete '/logout', to: 'users/sessions#destroy'
+    get '/current_user_info', to: 'users/sessions#current_user_info'
+    get '/current_user', to: 'users/sessions#current_user_info'  # Add this line
   end
 
   root "home_page#index"

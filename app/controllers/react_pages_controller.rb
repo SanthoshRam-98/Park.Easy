@@ -1,6 +1,7 @@
 class ReactPagesController < ApplicationController
+    skip_before_action :authenticate_user!, only: [:log_in,:sign_up,:forgot_password]
       # Add this before action to prevent caching
-        after_action :set_cache_headers
+    after_action :set_cache_headers
     def log_in
         render 'react_pages/log_in'
     end
@@ -14,7 +15,10 @@ class ReactPagesController < ApplicationController
     end
     
     def users_home_page
-        render 'react_pages/users_home_page'
+        unless user_signed_in?
+          redirect_to log_in_path, alert: "Please log in to continue."
+        end
+        # Other logic for the home page...
     end
 
     private
