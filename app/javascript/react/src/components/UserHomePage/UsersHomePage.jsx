@@ -6,14 +6,21 @@ function UsersHomePage() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const response = await fetch("/current_user");
-        if (response.status === 200) {
+        const response = await fetch("/current_user_info", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
           const data = await response.json();
-          setEmail(data.email);
+          console.log("Fetched email:", data.user); // Debugging line
+          setEmail(data.user);
         } else {
           window.location.href = "/log_in";
         }
       } catch (error) {
+        console.error("Error fetching user info:", error);
         window.location.href = "/log_in";
       }
     };
@@ -38,20 +45,24 @@ function UsersHomePage() {
 
   const handleLogout = async () => {
     try {
-      await fetch("/logout", {
+      const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+
+      const response = await fetch("/logout", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-Token": document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content"),
+          "X-CSRF-Token": csrfToken,
         },
       });
 
-      sessionStorage.setItem("isLoggedOut", "true");
-      history.pushState(null, null, "/log_in");
-      history.go(0);
-      window.location.href = "/log_in";
+      if (response.ok) {
+        sessionStorage.setItem("isLoggedOut", "true");
+        window.location.href = "/log_in";
+      } else {
+        console.error("Logout failed with status:", response.status);
+      }
     } catch (error) {
       console.error("Logout failed:", error);
     }

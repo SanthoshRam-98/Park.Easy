@@ -1,5 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
-  before_action :authenticate_user!, only: [:current_user_info]
+  before_action :authenticate_user!
 
   def current_user_info
     if user_signed_in?
