@@ -3,4 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  has_many :memberships, dependent: :destroy
+  has_many :organizations, through: :memberships
+
+  before_validation { self.phone = phone.to_s.gsub(/\D/, "").presence }
+
+  validates :phone, uniqueness: true, allow_nil: true,
+                    format: { with: /\A\d{10,12}\z/, message: "must be 10-12 digits" }
 end
