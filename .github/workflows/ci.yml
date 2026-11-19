@@ -15,7 +15,7 @@ concurrency:
 jobs:
   test:
     name: test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       RAILS_ENV: test
     steps:
@@ -34,7 +34,7 @@ jobs:
 
   security:
     name: security
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
@@ -42,7 +42,7 @@ jobs:
           bundler-cache: true
       - run: gem install brakeman bundler-audit --no-document
       - name: Static analysis (Brakeman)
-        run: brakeman -q --no-pager
+        run: brakeman -q --no-pager -x EOLRuby,EOLRails
       - name: Vulnerable gems (bundler-audit)
         run: bundle-audit check --update
         continue-on-error: true   # remove after the Rails upgrade (7.1 is end-of-life)

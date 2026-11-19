@@ -21,4 +21,19 @@ Rails.application.routes.draw do
   get 'about_us', to: 'about_us#index'
   get 'contact_us', to: 'contact_us#index'
   get 'users_home_page', to: 'react_pages#users_home_page'
+
+  # Operator / SaaS API (phase 1)
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :sites, only: %i[index show] do
+        get :summary, on: :member
+        resources :parking_sessions, only: %i[index show create] do
+          member do
+            get :quote
+            patch :checkout
+          end
+        end
+      end
+    end
+  end
 end
