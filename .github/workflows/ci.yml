@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1          # reads .ruby-version
+        with:
+          bundler-cache: true
+      - uses: actions/setup-node@v4       # reads .node-version
+        with:
+          node-version-file: .node-version
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn build && yarn build:css
+      - run: bundle exec rails db:test:prepare
+      - run: bundle exec rails test
+
+  security:
+    name: security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: gem install brakeman bundler-audit --no-document
+      - name: Static analysis (Brakeman)
+        run: brakeman -q --no-pager
+      - name: Vulnerable gems (bundler-audit)
+        run: bundle-audit check --update
+        continue-on-error: true   # remove after the Rails upgrade (7.1 is end-of-life)

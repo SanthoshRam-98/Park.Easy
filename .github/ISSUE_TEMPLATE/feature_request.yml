@@ -1,0 +1,17 @@
+name: Feature / task
+description: A change that moves ParkEasy forward
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes: { label: Problem, description: Who is blocked, and what do they do today? }
+    validations: { required: true }
+  - type: textarea
+    id: done
+    attributes: { label: Done when, description: Checkable acceptance criteria }
+    validations: { required: true }
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [operator, driver, owner dashboard, platform, infra, design]
