@@ -15,7 +15,7 @@ concurrency:
 jobs:
   test:
     name: test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       RAILS_ENV: test
     steps:
@@ -34,7 +34,7 @@ jobs:
 
   security:
     name: security
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
